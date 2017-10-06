@@ -1,7 +1,7 @@
     <nav class="navbar navbar-default navbar-fixed-top be-top-header">
         <div class="container-fluid">
-          <div class="navbar-header"><a href="#" class="navbar-brand"></a>
-          </div>
+<!--          <div class="navbar-header"><a href="#" class="navbar-brand"></a>
+          </div>-->
           <div class="be-right-navbar">
           
             
