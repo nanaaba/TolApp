@@ -36,8 +36,10 @@ class DashboardController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 
@@ -50,6 +52,8 @@ class DashboardController extends Controller {
 
                 return $bodyObj['data'];
             }
+
+            
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -67,8 +71,10 @@ class DashboardController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 
@@ -98,8 +104,10 @@ class DashboardController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 

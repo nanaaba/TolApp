@@ -12,6 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Session;
 
 class ConfigurationController extends Controller {
 
@@ -57,8 +58,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
 
         $dataArray = array(
@@ -66,7 +69,7 @@ class ConfigurationController extends Controller {
             'url' => $request['url'],
             'price' => $request['price'],
             'description' => $request['description'],
-            'addedby' => 1
+            'addedby' => session('userid')
         );
 
         try {
@@ -79,6 +82,7 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -95,8 +99,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 
@@ -109,6 +115,7 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -125,8 +132,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 
@@ -139,6 +148,7 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -155,8 +165,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 
@@ -169,6 +181,7 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -185,8 +198,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
         try {
 
@@ -199,6 +214,8 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -216,8 +233,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
 
         try {
@@ -232,6 +251,9 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
+
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -250,8 +272,10 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
 
         $dataArray = array(
@@ -261,7 +285,7 @@ class ConfigurationController extends Controller {
             'toll' => $request['toll'],
             'username' => $request['username'],
             'password' => md5('123456'),
-            'addedby' => 1
+            'addedby' => session('userid')
         );
 
         try {
@@ -274,6 +298,7 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -291,16 +316,18 @@ class ConfigurationController extends Controller {
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
 
         $dataArray = array(
-            'name' => $request['region'],
-            'contact' => $request['district'],
-            'email' => $request['area'],            
-            'addedby' => 1
+            'region' => $request['region'],
+            'area' => $request['area'],
+            'addedby' => session('userid')
         );
+
 
         try {
 
@@ -312,26 +339,29 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
-    
+
     public function getRegionDistricts($regionid) {
-        
-        
+
+
         $url = config('constants.TEST_URL');
 
-        $baseurl = $url.'/regiondistricts/'.$regionid;
+        $baseurl = $url . '/regiondistricts/' . $regionid;
 
 
 
         $client = new Client([
             'headers' => [
-                'Accept' => 'application/json'
+                'Accept' => 'application/json',
+                'token' => session('token')
             ],
+            'http_errors' => false
         ]);
 
         try {
@@ -346,11 +376,330 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
             return 'Internal Server Error:' . $e->getMessage();
         }
+    }
+
+    public function getCategoryInformation($id) {
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/category/' . $id;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function updateCategory(Request $request) {
+
+        $url = config('constants.TEST_URL');
+        $baseurl = $url . '/category';
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+
+        $dataArray = array(
+            'name' => $request['name'],
+            'url' => $request['url'],
+            'price' => $request['price'],
+            'description' => $request['description'],
+            'categoryid' => $request['categoryid']
+        );
+
+        // return   json_encode($dataArray);
+
+        try {
+
+            $response = $client->request('PUT', $baseurl, ['json' => $dataArray, 'verify' => false]);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function deleteCategory($id) {
+
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/category/' . $id;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('DELETE', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function getTollInformation($id) {
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/toll/' . $id;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function updateToll(Request $request) {
+
+
+        $url = config('constants.TEST_URL');
+        $baseurl = $url . '/toll';
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+
+        $dataArray = array(
+            'region' => $request['region'],
+            'area' => $request['area'],
+            'toll' => $request['tollid']
+        );
+
+
+        try {
+
+            $response = $client->request('PUT', $baseurl, ['json' => $dataArray, 'verify' => false]);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function deleteToll($id) {
+
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/toll/' . $id;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('DELETE', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function getCashierInformation($id) {
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/cashier/' . $id;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function updateCashier(Request $request) {
+
+
+        $url = config('constants.TEST_URL');
+        $baseurl = $url . '/cashier';
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+
+        $dataArray = array(
+            'name' => $request['name'],
+            'contact' => $request['contact'],
+            'email' => $request['email'],
+            'toll' => $request['toll'],
+            'cashier' => $request['cashierid']
+        );
+
+        try {
+
+            $response = $client->request('PUT', $baseurl, ['json' => $dataArray, 'verify' => false]);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function deleteCashier($id) {
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/cashier/' . $id;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('DELETE', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function redirectUrl() {
+        return redirect()->route('/logout');
     }
 
 }

@@ -41,6 +41,8 @@
 <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.0.2/js/dataTables.rowGroup.min.js"></script>
+  
+<script src="{{ asset('assets/lib/jquery.niftymodals/dist/jquery.niftymodals.js')}}" type="text/javascript"></script>
 
 
 
@@ -57,7 +59,7 @@
 
 
 
-  <script type="text/javascript">
+<script type="text/javascript">
 $(document).ready(function () {
     //initialize the javascript
     App.init();
@@ -67,5 +69,15 @@ $(document).ready(function () {
 
     //Runs prettify
     prettyPrint();
+    
+     $.fn.niftyModal('setDefaults',{
+      	overlaySelector: '.modal-overlay',
+      	closeSelector: '.modal-close',
+      	classAddAfterOpen: 'modal-show',
+      });
+      
 });
-        </script>  
+function SignOut() {
+    window.location = "{{url('logout')}}";
+}
+</script>  

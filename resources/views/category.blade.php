@@ -103,11 +103,20 @@
 //add class to div
             $('.loader').addClass('be-loading-active');
             $.ajax({
-                url: "{{url('savecategory')}}",
+                url: "{{url('configuration/savecategory')}}",
                 type: "POST",
                 data: formData,
                 dataType: "json",
                 success: function (data) {
+
+                    if (data == "401") {
+                        $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                    }
+
+                    if (data == "500") {
+                        $('#errorModal').modal('show');
+                    }
+
                     $('.loader').removeClass('be-loading-active');
                     console.log('server data :' + data.status);
                     var status = data.status;

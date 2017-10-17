@@ -46,32 +46,22 @@
                                         <div class="form-group">
                                             <label class=" control-label">Regions</label>
 
-                                            <select class="select2 select2-hidden-accessible" name="regions" id="regions" tabindex="-1" aria-hidden="true" required>
+                                            <select class="select2 select2-hidden-accessible" name="region" id="regions" tabindex="-1" aria-hidden="true" required>
 
                                                 <option value="">Select ---</option>
 
                                             </select>
 
                                         </div>
+                                    </div>
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>Area Name</label>
                                             <input type="text" name="area" class="form-control" required>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class=" control-label">District</label>
 
-                                            <select class="select2 select2-hidden-accessible" name="districts" id="districts" tabindex="-1" aria-hidden="true" required>
-
-                                                <option value="">Select ---</option>
-
-                                            </select>
-
-                                        </div>
-
-                                    </div>
                                 </div>
 
 
@@ -105,10 +95,18 @@
     <script type="text/javascript">
 
         $.ajax({
-            url: "{{url('gettollpoints')}}",
+            url: "{{url('configuration/gettollpoints')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
                 var dataSet = data.data;
 
                 $.each(dataSet, function (i, item) {
@@ -128,6 +126,13 @@
             dataType: 'json',
             success: function (data) {
 
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
                 var dataSet = data.data;
 
                 $.each(dataSet, function (i, item) {
@@ -147,6 +152,14 @@
             type: "GET",
             dataType: 'json',
             success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
 
                 var dataSet = data.data;
 
@@ -170,11 +183,19 @@
 //add class to div
             $('.loader').addClass('be-loading-active');
             $.ajax({
-                url: "{{url('savetoll')}}",
+                url: "{{url('configuration/savetoll')}}",
                 type: "POST",
                 data: formData,
                 dataType: "json",
                 success: function (data) {
+
+                    if (data == "401") {
+                        $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                    }
+
+                    if (data == "500") {
+                        $('#errorModal').modal('show');
+                    }
                     $('.loader').removeClass('be-loading-active');
                     console.log('server data :' + data.status);
                     var status = data.status;

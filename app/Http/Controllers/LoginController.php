@@ -13,18 +13,18 @@ use GuzzleHttp\Client;
 use App\Region;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Redirect;
 
 class LoginController extends Controller {
 
     public function authenticateuser(Request $request) {
 
         // $data = $request->all(); // This will get all the request data.
-        $username = $request['username'];
+        $username = $request['email'];
         $password = $request['password'];
 
 
-        $feedback = $this->userAuthentication($username, $password);
-        return $feedback;
+        return $this->userAuthentication($username, $password);
     }
 
     public function userAuthentication($username, $password) {
@@ -46,7 +46,8 @@ class LoginController extends Controller {
             'email' => $username,
             'password' => $password
         );
-
+        
+      
         try {
 
             $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
@@ -60,13 +61,18 @@ class LoginController extends Controller {
                 $status = $bodyObj->status;
 
                 if ($status == 0) {
-
+//
                     session(['email' => $username]);
-
+                    session(['name' => $bodyObj->details->name]);
+                    session(['userid' => $bodyObj->details->userid]);
+                    session(['lastlogin' => $bodyObj->details->lastlogin]);
+                    session(['token' => $bodyObj->details->token]);
+                    session(['role' => $bodyObj->details->role]);
                     return 'success';
                 } else {
-
+                    //   return Redirect::back()->withErrors(['msg',  $bodyObj->message]);
                     return $bodyObj->message;
+                    //return redirect('login')->with('message', $bodyObj->message);
                 }
             }
         } catch (RequestException $e) {

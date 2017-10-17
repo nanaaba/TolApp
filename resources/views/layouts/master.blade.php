@@ -7,7 +7,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <link rel="shortcut icon" href="{{ asset('assets/img/logo-fav.png')}}">
-        <title>Beagle</title>
+        <title>TollApp</title>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/material-design-icons/css/material-design-iconic-font.min.css')}}"/><!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -24,7 +24,7 @@
 
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.0.2/css/rowGroup.dataTables.min.css"/>
 
-        
+
 
     </head>
     <body>
@@ -49,6 +49,84 @@
             @include('layouts.footer')
 
         </div>
+
+        <div id="deleteModal" tabindex="-1" role="dialog" class="modal fade in" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
+                    </div>
+                    <form id="deleteForm">
+                        <input type="hidden" name="_token" id="token" value="<?php echo csrf_token() ?>"/>
+
+                        <input type="hidden" name="itemid" id="itemid"/>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <div class="text-primary">
+                                    <span class="modal-main-icon mdi mdi-info-outline"></span></div>
+                                <h3>Information!</h3>
+                                <p>Are you sure you want to delete?</p>
+                                <div class="xs-mt-50"> 
+                                    <button type="button" data-dismiss="modal" class="btn btn-space btn-default">Cancel</button>
+                                    <button type="submit"  class="btn btn-space btn-primary">Proceed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>
+
+        
+<!--        <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
+                    </div>
+                    <form id="deleteForm">
+                        <input type="hidden" name="_token" id="token" value="<?php echo csrf_token() ?>"/>
+
+                        <input type="hidden" name="itemid" id="itemid"/>
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <div class="text-primary">
+                                    <span class="modal-main-icon mdi mdi-info-outline"></span></div>
+                                <h3>Information!</h3>
+                                <p>Are you sure you want to delete?</p>
+                                <div class="xs-mt-50"> 
+                                    <button type="button" data-dismiss="modal" class="btn btn-space btn-default">Cancel</button>
+                                    <button type="submit"  class="btn btn-space btn-primary">Proceed</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer"></div>
+                </div>
+            </div>
+        </div>-->
+
+ <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
+            <div class="modal-content">
+
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="text-danger"><span class="modal-main-icon mdi mdi-info"></span></div>
+                        <h3>Session Timed Out!</h3>
+                        <p>Your Session has expired.You have been inactive for some minutes.Sign out and Login in</p>
+                        <div class="xs-mt-50">
+                            <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign Out</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+
+
         @yield('customjs')
+
+
     </body>
 </html>

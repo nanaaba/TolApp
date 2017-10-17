@@ -32,5 +32,7 @@
       });
       
     </script>
+    
+      @yield('customjs')
   </body>
 </html>

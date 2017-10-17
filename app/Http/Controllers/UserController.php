@@ -13,39 +13,20 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 
-class ReportController extends Controller {
+class UserController extends Controller {
 
-    public function showreport() {
+    public function showusers() {
 
-        return view('generalreport');
+
+        return view('users');
     }
 
-    public function showyearlyreport() {
+    public function getUsers() {
 
-        return view('yearlyreport');
-    }
-
-    public function showmonthlyreport() {
-
-        return view('monthlyreport');
-    }
-
-    public function showdailyreport() {
-        return view('daywisereport');
-    }
-
-    public function showshiftreport() {
-
-        return view('shiftwisereport');
-    }
-
-    public function spoolresult(Request $request) {
 
         $url = config('constants.TEST_URL');
 
-        $baseurl = $url . '/generalreport';
-
-
+        $baseurl = $url.'/users';
 
         $client = new Client([
             'headers' => [
@@ -54,33 +35,12 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-        $date = "'" . $request['daterange'] . "'";
-
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
-
-        $dataArray = array(
-            'toll' => $request['tollpoints'],
-            'category' => $request['categories'],
-            'cashier' => $request['cashiers'],
-            'region' => $request['regions'],
-            'district' => $request['districts'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
-        );
-
-
         try {
 
-            $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
+            $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-            // $bodyObj = json_decode($body);
-
+            //$bodyObj = json_decode($body);
 
             if ($response->getStatusCode() == 200) {
 
@@ -94,11 +54,11 @@ class ReportController extends Controller {
         }
     }
 
-    public function daywisereport(Request $request) {
+    public function saveUser(Request $request) {
+
 
         $url = config('constants.TEST_URL');
-
-        $baseurl = $url . '/daywisereport';
+        $baseurl = $url . '/user';
 
 
 
@@ -109,29 +69,27 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-        $date = "'" . $request['daterange'] . "'";
 
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
-
+        if( $request['role'] == "Supervisor"){
+            $region = $request['region'];
+        }else{
+            $region =0;
+        }
         $dataArray = array(
-            'toll' => $request['tollpoints'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'contact' => $request['contact'],
+             'region' => $region,
+            'role' => $request['role'],
+            'password' => md5('123456'),
+            'addedby' => session('userid')
         );
-
 
         try {
 
             $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
 
             $body = $response->getBody();
-            // $bodyObj = json_decode($body);
-
 
             if ($response->getStatusCode() == 200) {
 
@@ -145,11 +103,11 @@ class ReportController extends Controller {
         }
     }
 
-    public function monthlyreport(Request $request) {
+    public function updateUser(Request $request) {
+
 
         $url = config('constants.TEST_URL');
-
-        $baseurl = $url . '/monthlywisereport';
+        $baseurl = $url . '/users';
 
 
 
@@ -162,19 +120,18 @@ class ReportController extends Controller {
         ]);
 
         $dataArray = array(
-            'toll' => $request['toll'],
-            'month' => $request['month'],
-            'year' => $request['year']
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'contact' => $request['contact'],
+            'role' => $request['role'],
+            'userid' => $request['userid']
         );
-
 
         try {
 
-            $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
+            $response = $client->request('PUT', $baseurl, ['json' => $dataArray, 'verify' => false]);
 
             $body = $response->getBody();
-            // $bodyObj = json_decode($body);
-
 
             if ($response->getStatusCode() == 200) {
 
@@ -188,13 +145,12 @@ class ReportController extends Controller {
         }
     }
 
-    public function yearlyreport(Request $request) {
+    public function deleteUser($userid) {
+
 
         $url = config('constants.TEST_URL');
 
-        $baseurl = $url . '/yearlyreport';
-
-
+        $baseurl = $url . '/users/' . $userid;
 
         $client = new Client([
             'headers' => [
@@ -203,20 +159,11 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-
-        $dataArray = array(
-            'toll' => $request['toll'],
-            'year' => $request['year']
-        );
-
-
         try {
 
-            $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
+            $response = $client->request('DELETE', $baseurl);
 
             $body = $response->getBody();
-            // $bodyObj = json_decode($body);
-
 
             if ($response->getStatusCode() == 200) {
 
@@ -230,13 +177,11 @@ class ReportController extends Controller {
         }
     }
 
-    public function shiftreport(Request $request) {
+    public function userDetail($userid) {
 
         $url = config('constants.TEST_URL');
 
-        $baseurl = $url . '/shiftreport';
-
-
+        $baseurl = $url . '/users/' . $userid;
 
         $client = new Client([
             'headers' => [
@@ -245,31 +190,12 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-
-        $date = "'" . $request['daterange'] . "'";
-
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
-
-        $dataArray = array(
-            'toll' => $request['toll'],
-            'shift' => $request['shift'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
-        );
-
-
         try {
 
-            $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
+            $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-            // $bodyObj = json_decode($body);
-
+            //$bodyObj = json_decode($body);
 
             if ($response->getStatusCode() == 200) {
 

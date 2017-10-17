@@ -4,7 +4,7 @@
 
 <div class="be-content">
     <div class="page-head">
-        <h2 class="page-head-title">Category</h2>
+        <h2 class="page-head-title">Cashier</h2>
         <ol class="breadcrumb page-head-nav">
             <li><a href="#">Home</a></li>
             <li><a href="#">Configuration</a></li>
@@ -99,10 +99,18 @@
     <script type="text/javascript">
 
         $.ajax({
-            url: "{{url('gettollpoints')}}",
+            url: "{{url('configuration/gettollpoints')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal({backdrop: 'static'}, 'show');
+                }
                 var dataSet = data.data;
 
                 $.each(dataSet, function (i, item) {
@@ -121,14 +129,22 @@
             e.preventDefault();
             var formData = $(this).serialize();
             console.log(formData);
-        
+
             $('.loader').addClass('be-loading-active');
             $.ajax({
-                url: "{{url('savecashier')}}",
+                url: "{{url('configuration/savecashier')}}",
                 type: "POST",
                 data: formData,
                 dataType: "json",
                 success: function (data) {
+
+                    if (data == "401") {
+                        $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                    }
+
+                    if (data == "500") {
+                        $('#errorModal').modal({backdrop: 'static'}, 'show');
+                    }
                     $('.loader').removeClass('be-loading-active');
                     console.log('server data :' + data.status);
                     var status = data.status;

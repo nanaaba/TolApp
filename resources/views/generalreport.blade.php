@@ -4,10 +4,11 @@
 
 <div class="be-content">
     <div class="page-head">
-        <h2 class="page-head-title">Report</h2>
+        <h2 class="page-head-title">General Report</h2>
         <ol class="breadcrumb page-head-nav">
             <li><a href="#">Home</a></li>
-            <li class="active">Report</li>
+            <li><a href="#">Report</a></li>
+            <li class="active">General Report</li>
         </ol>
     </div>
     <div class="main-content container-fluid">
@@ -24,7 +25,7 @@
 
                                 <div class="row">
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Regions</label>
 
@@ -36,7 +37,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
+<!--                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class=" control-label">District</label>
 
@@ -47,8 +48,8 @@
                                             </select>
 
                                         </div>
-                                    </div>
-                                    <div class="col-sm-4">
+                                    </div>-->
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Toll</label>
 
@@ -189,6 +190,14 @@
                 data: formData,
                 dataType: 'json',
                 success: function (data) {
+
+                    if (data == "401") {
+                        $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                    }
+
+                    if (data == "500") {
+                        $('#errorModal').modal('show');
+                    }
                     $('.loader').removeClass('be-loading-active');
                     console.log('server data :' + data.data);
                     var dataSet = data.data;
@@ -227,10 +236,18 @@
             });
         });
         $.ajax({
-            url: "{{url('gettollpoints')}}",
+            url: "{{url('configuration/gettollpoints')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
                 var dataSet = data.data;
                 $.each(dataSet, function (i, item) {
 
@@ -248,6 +265,14 @@
             dataType: 'json',
             success: function (data) {
 
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
+
                 var dataSet = data.data;
                 $.each(dataSet, function (i, item) {
 
@@ -260,11 +285,18 @@
             }
         });
         $.ajax({
-            url: "{{url('getcategories')}}",
+            url: "{{url('configuration/getcategories')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
 
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
                 var dataSet = data.data;
                 $.each(dataSet, function (i, item) {
 
@@ -277,11 +309,18 @@
             }
         });
         $.ajax({
-            url: "{{url('getcashiers')}}",
+            url: "{{url('configuration/getcashiers')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
 
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
                 var dataSet = data.data;
                 $.each(dataSet, function (i, item) {
 
@@ -303,6 +342,13 @@
                 dataType: 'json',
                 success: function (data) {
 
+                    if (data == "401") {
+                        $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                    }
+
+                    if (data == "500") {
+                        $('#errorModal').modal('show');
+                    }
                     var dataSet = data.data;
                     console.log('district data: ' + dataSet);
                     $.each(dataSet, function (i, item) {
