@@ -125,6 +125,7 @@ class ReportController extends Controller {
         );
 
 
+       // return json_encode($dataArray);
         try {
 
             $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);

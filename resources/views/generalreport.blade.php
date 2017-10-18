@@ -37,18 +37,18 @@
 
                                         </div>
                                     </div>
-<!--                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class=" control-label">District</label>
-
-                                            <select class="select2 select2-hidden-accessible" name="districts" id="districts" tabindex="-1" aria-hidden="true">
-
-                                                <option value="">Select ---</option>
-
-                                            </select>
-
-                                        </div>
-                                    </div>-->
+                                    <!--                                    <div class="col-sm-4">
+                                                                            <div class="form-group">
+                                                                                <label class=" control-label">District</label>
+                                    
+                                                                                <select class="select2 select2-hidden-accessible" name="districts" id="districts" tabindex="-1" aria-hidden="true">
+                                    
+                                                                                    <option value="">Select ---</option>
+                                    
+                                                                                </select>
+                                    
+                                                                            </div>
+                                                                        </div>-->
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Toll</label>
@@ -137,8 +137,9 @@
                                     <th>Category</th>
                                     <th>Amount</th>
                                     <th>Cashier</th>
+                                    <th>Shift</th>
+
                                     <th>Region</th>
-                                    <th>District</th>
                                     <th>Toll</th>
                                     <th>Transaction Date</th>
                                 </tr>
@@ -185,7 +186,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: "{{url('searchresult')}}",
+                url: "{{url('reports/searchresult')}}",
                 type: "POST",
                 data: formData,
                 dataType: 'json',
@@ -219,8 +220,9 @@
                             r[++j] = '<td class="subject"> ' + value.category_name + '</td>';
                             r[++j] = '<td class="subject">' + value.amount + '</td>';
                             r[++j] = '<td class="subject">' + value.cashier_name + '</td>';
+                            r[++j] = '<td class="subject">' + value.shift + '</td>';
+
                             r[++j] = '<td class="subject">' + value.region_name + '</td>';
-                            r[++j] = '<td class="subject">' + value.district_name + '</td>';
                             r[++j] = '<td class="subject">' + value.area + '</td>';
                             r[++j] = '<td class="subject">' + value.transactiondate + '</td>';
                             rowNode = datatable.row.add(r);

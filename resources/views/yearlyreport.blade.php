@@ -104,12 +104,12 @@
 
                                 </tr>
                             </thead>
-                            <tfoot>
+<!--                            <tfoot>
                                 <tr>
                                     <th colspan="4" style="text-align:right">Total:</th>
                                     <th></th>
                                 </tr>
-                            </tfoot>
+                            </tfoot>-->
                             <tbody id="transactionbody">
 
                             </tbody>
@@ -148,33 +148,8 @@
                 {"width": "25%", "targets": 2},
                 {"width": "15%", "targets": 3},
                 {"width": "15%", "targets": 4}
-            ],
-            "footerCallback": function (row, data, start, end, display) {
-                var api = this.api(), data;
-
-                // Remove the formatting to get integer data for summation
-//                var intVal = function (i) {
-//                    return typeof i === 'string' ?
-//                            i.replace(/[\GHS,]/g, '') * 1 :
-//                            typeof i === 'number' ?
-//                            i : 0;
-//                };
-
-                // Total over all pages
-                total = api
-                        .column(4)
-                        .data()
-                        .reduce(function (a, b) {
-                            return a + b;
-                        }, 0);
-
-
-
-                // Update footer
-                $(api.column(4).footer()).html(
-                        'GHS ' + total
-                        );
-            }
+            ]
+       
         });
 
         datatable.buttons().container()
@@ -185,7 +160,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: "{{url('yearlyreport')}}",
+                url: "{{url('reports/yearlyreport')}}",
                 type: "POST",
                 data: formData,
                 dataType: 'json',
@@ -235,7 +210,7 @@
             });
         });
         $.ajax({
-            url: "{{url('gettollpoints')}}",
+            url: "{{url('configuration/gettollpoints')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {

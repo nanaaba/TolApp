@@ -150,7 +150,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: "{{url('shiftreport')}}",
+                url: "{{url('reports/shiftreport')}}",
                 type: "POST",
                 data: formData,
                 dataType: 'json',
@@ -199,7 +199,7 @@
             });
         });
         $.ajax({
-            url: "{{url('gettollpoints')}}",
+            url: "{{url('configuration/gettollpoints')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
@@ -248,7 +248,7 @@
             }
         });
         $.ajax({
-            url: "{{url('getcategories')}}",
+            url: "{{url('configuration/getcategories')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {
@@ -273,7 +273,7 @@
             }
         });
         $.ajax({
-            url: "{{url('getcashiers')}}",
+            url: "{{url('configuration/getcashiers')}}",
             type: "GET",
             dataType: 'json',
             success: function (data) {

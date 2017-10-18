@@ -132,7 +132,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: "{{url('dailyreport')}}",
+                url: "{{url('reports/dailyreport')}}",
                 type: "POST",
                 data: formData,
                 dataType: 'json',
