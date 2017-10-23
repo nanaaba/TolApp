@@ -154,7 +154,7 @@
         </div>
 
     </div>
-
+</div>
 
 
     @endsection
@@ -334,6 +334,9 @@
                 $('#loaderModal').modal('hide');
             }
         });
+        
+        
+        
         $('#regions').change(function () {
             var region = $(this).val();
             console.log('region code ' + region);

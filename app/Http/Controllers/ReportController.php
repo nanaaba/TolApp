@@ -125,7 +125,7 @@ class ReportController extends Controller {
         );
 
 
-       // return json_encode($dataArray);
+        // return json_encode($dataArray);
         try {
 
             $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
@@ -277,6 +277,73 @@ class ReportController extends Controller {
                 return $body;
             }
             return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function weeklyReports(Request $request) {
+
+        $type = $request['type'];
+        $value = $request['value'];
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/weeklyreport/' . $type . '/' . $value;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function yearlyReports(Request $request) {
+
+        $type = $request['type'];
+        $value = $request['value'];
+
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/yearlyreport/' . $type . '/' . $value;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {

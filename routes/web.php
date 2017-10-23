@@ -27,6 +27,10 @@ Route::group(['middleware' => 'check-userauth'], function () {
     //display views   
 
     Route::get('dashboard', 'DashboardController@showdashboard');
+    
+    Route::get('home/dashboard', 'DashboardController@showdashboard');
+    Route::get('home/trendanalysis', 'DashboardController@showtrendanalysis');
+
     Route::get('configuration/category', 'ConfigurationController@showcategory');
     Route::get('configuration/tollpoint', ['middleware' => 'check-userauth', 'uses' => 'ConfigurationController@showtollpoint']);
     Route::get('configuration/cashier', 'ConfigurationController@showcashier');
@@ -51,6 +55,20 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('reports/monthlyreport', 'ReportController@monthlyreport');
     Route::post('reports/dailyreport', 'ReportController@daywisereport');
     Route::post('reports/shiftreport', 'ReportController@shiftreport');
+    Route::post('reports/weekly', 'ReportController@weeklyReports');
+    Route::post('reports/yearly', 'ReportController@yearlyReports');
+
+
+    //Dashboard  nonperformingcashiers
+    Route::get('reports/performingcashiers', 'DashboardController@reportsonBestTenCashiersPerforming');
+    Route::get('reports/nonperformingcashiers', 'DashboardController@reportsonLastTenNonPerformingCashiers');
+    Route::get('reports/regionperformance', 'DashboardController@reportsonRegionPerformance');
+    Route::get('reports/shiftperformance', 'DashboardController@reportsonShiftPerformance');
+    Route::get('reports/performingtolls', 'DashboardController@reportsonPerformingTolls');
+    Route::get('reports/nonperformingtolls', 'DashboardController@reportsonNonPerformingTolls');
+    Route::get('reports/categoryperformance', 'DashboardController@reportsonCategoryPerformance');
+
+
 
 //configuration apis
 //vehicle types apis

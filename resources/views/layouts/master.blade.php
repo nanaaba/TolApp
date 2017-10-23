@@ -8,21 +8,33 @@
         <meta name="author" content="">
         <link rel="shortcut icon" href="{{ asset('assets/img/logo-fav.png')}}">
         <title>TollApp</title>
+        <!--        <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css')}}"/>
+               
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/material-design-icons/css/material-design-iconic-font.min.css')}}"/>[if lt IE 9]>
+                <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+                <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+                <![endif]
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/jquery.vectormap/jquery-jvectormap-1.2.2.css')}}"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/jqvmap/jqvmap.min.css')}}"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css')}}"/>
+                <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" type="text/css"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/daterangepicker/css/daterangepicker.css')}}"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/select2/css/select2.min.css')}}"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/bootstrap-slider/css/bootstrap-slider.css')}}"/>
+                <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/datatables/css/dataTables.bootstrap.min.css')}}"/>
+        
+                <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.0.2/css/rowGroup.dataTables.min.css"/>-->
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/perfect-scrollbar/css/perfect-scrollbar.min.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/material-design-icons/css/material-design-iconic-font.min.css')}}"/><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js')}}"></script>
+        <script src="https://oss.maxcsedn.com/respond/1.4.2/respond.min.js')}}"></script>
         <![endif]-->
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/jquery.vectormap/jquery-jvectormap-1.2.2.css')}}"/>
-        <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/jqvmap/jqvmap.min.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/datetimepicker/css/bootstrap-datetimepicker.min.css')}}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/daterangepicker/css/daterangepicker.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/select2/css/select2.min.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/bootstrap-slider/css/bootstrap-slider.css')}}"/>
+        <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/datatables/css/dataTables.bootstrap.min.css')}}"/>
-
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/rowgroup/1.0.2/css/rowGroup.dataTables.min.css"/>
 
 
 
@@ -78,36 +90,36 @@
             </div>
         </div>
 
-        
-<!--        <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
-                    </div>
-                    <form id="deleteForm">
-                        <input type="hidden" name="_token" id="token" value="<?php echo csrf_token() ?>"/>
 
-                        <input type="hidden" name="itemid" id="itemid"/>
-                        <div class="modal-body">
-                            <div class="text-center">
-                                <div class="text-primary">
-                                    <span class="modal-main-icon mdi mdi-info-outline"></span></div>
-                                <h3>Information!</h3>
-                                <p>Are you sure you want to delete?</p>
-                                <div class="xs-mt-50"> 
-                                    <button type="button" data-dismiss="modal" class="btn btn-space btn-default">Cancel</button>
-                                    <button type="submit"  class="btn btn-space btn-primary">Proceed</button>
-                                </div>
+        <!--        <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
                             </div>
+                            <form id="deleteForm">
+                                <input type="hidden" name="_token" id="token" value="<?php echo csrf_token() ?>"/>
+        
+                                <input type="hidden" name="itemid" id="itemid"/>
+                                <div class="modal-body">
+                                    <div class="text-center">
+                                        <div class="text-primary">
+                                            <span class="modal-main-icon mdi mdi-info-outline"></span></div>
+                                        <h3>Information!</h3>
+                                        <p>Are you sure you want to delete?</p>
+                                        <div class="xs-mt-50"> 
+                                            <button type="button" data-dismiss="modal" class="btn btn-space btn-default">Cancel</button>
+                                            <button type="submit"  class="btn btn-space btn-primary">Proceed</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="modal-footer"></div>
                         </div>
-                    </form>
-                    <div class="modal-footer"></div>
-                </div>
-            </div>
-        </div>-->
+                    </div>
+                </div>-->
 
- <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
+        <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
             <div class="modal-content">
 
                 <div class="modal-body">
