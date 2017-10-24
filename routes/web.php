@@ -28,9 +28,12 @@ Route::group(['middleware' => 'check-userauth'], function () {
 
     Route::get('dashboard', 'DashboardController@showdashboard');
     
-    Route::get('home/dashboard', 'DashboardController@showdashboard');
-    Route::get('home/trendanalysis', 'DashboardController@showtrendanalysis');
+    Route::get('analytics/trend', 'DashboardController@showtrendanalysis');
+    Route::get('analytics/customperformance', 'DashboardController@showcustomperformance');
+    Route::get('analytics/customtrend', 'DashboardController@showcustomtrend');
 
+    
+    
     Route::get('configuration/category', 'ConfigurationController@showcategory');
     Route::get('configuration/tollpoint', ['middleware' => 'check-userauth', 'uses' => 'ConfigurationController@showtollpoint']);
     Route::get('configuration/cashier', 'ConfigurationController@showcashier');
@@ -44,6 +47,7 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::get('reports/daily', 'ReportController@showdailyreport');
     Route::get('reports/shift', 'ReportController@showshiftreport');
     Route::get('users', 'UserController@showusers');
+    Route::get('users/changepassword', 'UserController@showchangepassword');
 
 
 
@@ -57,6 +61,7 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('reports/shiftreport', 'ReportController@shiftreport');
     Route::post('reports/weekly', 'ReportController@weeklyReports');
     Route::post('reports/yearly', 'ReportController@yearlyReports');
+    Route::post('reports/customperformance', 'ReportController@customPerfromanceAnalysis');
 
 
     //Dashboard  nonperformingcashiers
@@ -85,6 +90,9 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('configuration/savetoll', 'ConfigurationController@saveToll');
     Route::put('configuration/updatetoll', 'ConfigurationController@updateToll');
     Route::delete('configuration/deletetoll/{id}', 'ConfigurationController@deleteToll');
+    Route::get('configuration/regioncashiers/{ids}', 'ConfigurationController@getRegionCashiers');
+    Route::get('configuration/tollcashiers/{ids}', 'ConfigurationController@getTollCashiers');
+    Route::get('configuration/regiontolls/{ids}', 'ConfigurationController@getRegionTolls');
 
 
 //cashier apis
@@ -101,6 +109,8 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('users/save', 'UserController@saveUser');
     Route::delete('users/{userid}', 'UserController@deleteUser');
     Route::put('users/update', 'UserController@updateUser');
+    Route::post('users/changepassword', 'UserController@changePassword');
+    Route::get('users/reset/{userid}', 'UserController@resetPassword');
 
 
 //other apis

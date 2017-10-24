@@ -67,6 +67,38 @@
                     </div>
                 </div>
             </div>
+            
+            
+            
+            
+            
+              <div id="resetModal" tabindex="-1" role="dialog" class="modal fade in" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
+                        </div>
+                        <form id="resetForm">
+                            <input type="hidden" name="_token" id="token" value="<?php echo csrf_token() ?>"/>
+
+                            <input type="hidden" name="itemid" id="itemid"/>
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <div class="text-primary">
+                                        <span class="modal-main-icon mdi mdi-info-outline"></span></div>
+                                    <h3>Information!</h3>
+                                    <p>Are you sure you want to reset this user password?</p>
+                                    <div class="xs-mt-50"> 
+                                        <button type="button" data-dismiss="modal" class="btn btn-space btn-default">Cancel</button>
+                                        <button type="submit"  class="btn btn-space btn-primary">Proceed</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
 
            <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
             <div class="modal-content">

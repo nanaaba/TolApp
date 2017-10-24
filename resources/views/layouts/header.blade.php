@@ -14,7 +14,7 @@
                   </a>
                 <ul class="dropdown-menu be-connections">
                   <li>
-                      <a href="#" >Change Password</a>
+                      <a href="{{url('users/changepassword')}}" >Change Password</a>
                   </li>
                   <li>
                       <a href="{{url('logout')}}" >Logout</a>

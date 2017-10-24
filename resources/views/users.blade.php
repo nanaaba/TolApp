@@ -88,7 +88,7 @@
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" class="form-control " required>
                     </div>
 
                     <div class="form-group">
@@ -272,6 +272,7 @@
                         r[++j] = '<td class="actions">' +
                                 '<a  href="#"  onclick="editUser(' + value.id + ')"  type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title="View" class="mdi mdi-eye""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
                                 '<a  href="#" onclick="deleteUser(' + value.id + ')" type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title ="Delete" class="mdi mdi-delete""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
+                                '<a  href="#" onclick="resetPassword(' + value.id + ')" type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title ="Reset" class="mdi mdi-edit""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
                                 '</td>';
                         rowNode = datatable.row.add(r);
                     });
@@ -319,6 +320,11 @@
     function deleteUser(id) {
         $('#itemid').val(id);
         $('#deleteModal').modal('show');
+    }
+
+    function resetPassword(id) {
+        $('#itemid').val(id);
+        $('#resetModal').modal('show');
     }
 
 
@@ -428,6 +434,49 @@
             url: "users/" + itemid,
             type: "DELETE",
             data: {_token: token},
+            dataType: 'json',
+            success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
+
+                $('.loader').removeClass('be-loading-active');
+                console.log('server data :' + data);
+                var status = data.status;
+                if (status == 0) {
+                    getUsers();
+                    document.getElementById("deleteForm").reset();
+                    $('.feedback').html(data.message);
+                    $('#successdiv').show();
+                    $('#errordiv').hide();
+                }
+                if (status == 1) {
+                    $('.feedback').html(data.message);
+                    $('#errordiv').show();
+                    $('#successdiv').hide();
+                }
+
+            }
+
+        });
+    });
+
+
+    $('#resetForm').on('submit', function (e) {
+
+        e.preventDefault();
+        var itemid = $('#itemid').val();
+        //var token = $('#token').val();
+        $('#resetModal').modal('hide');
+        $('.loader').addClass('be-loading-active');
+        $.ajax({
+            url: "users/reset/" + itemid,
+            type: "GET",
             dataType: 'json',
             success: function (data) {
 

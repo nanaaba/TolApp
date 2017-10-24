@@ -102,7 +102,7 @@
 
                         <span class="title">Region Performance(This Year)</span>
                         <span class="panel-subtitle">
-                      Performance of regions in this year
+                            Performance of regions in this year
                         </span>
                     </div>
                     <div class="panel-body">
@@ -116,7 +116,7 @@
 
                         <span class="title">Shift Performance(This Year)</span>
                         <span class="panel-subtitle">
-                      Performance of shift in this year
+                            Performance of shift in this year
                         </span>
                     </div>
                     <div class="panel-body">
@@ -128,7 +128,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-divider">
+                    <div class="panel-heading panel-heading-divider">
 
                         <span class="title">Best 10 Performing Tolls ( Across Country)</span>
                         <span class="panel-subtitle">
@@ -142,7 +142,7 @@
             </div>
             <div class="col-md-6">
                 <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-divider">
+                    <div class="panel-heading panel-heading-divider">
 
                         <span class="title">Last 10 Non-Performing Tolls ( Across Country)</span>
                         <span class="panel-subtitle">
@@ -156,16 +156,16 @@
             </div>
         </div>
 
-        
-        
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                        <div class="panel-heading panel-heading-divider">
+                    <div class="panel-heading panel-heading-divider">
 
                         <span class="title">Cars Categories Performance (This Year)</span>
                         <span class="panel-subtitle">
-                            
+
                         </span>
                     </div>
                     <div class="panel-body">
@@ -173,415 +173,425 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-</div>
-@endsection
+    @endsection
 
-@section('customjs')
-<script type="text/javascript">
-    $(document).ready(function () {
-        //initialize the javascript
-        App.init();
-        App.dashboard();
-        //App.formElements();
-    });
-
-
-    function getPerformingCashiers() {
-
-
-
-        return    $.ajax({
-            url: "{{url('reports/performingcashiers')}}",
-            type: "GET",
-            dataType: 'json'
-
+    @section('customjs')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //initialize the javascript
+            App.init();
+            App.dashboard();
+            //App.formElements();
         });
-    }
-
-    function getNonPerformingCashiers() {
 
 
+        function getPerformingCashiers() {
 
-        return    $.ajax({
-            url: "{{url('reports/nonperformingcashiers')}}",
-            type: "GET",
-            dataType: 'json'
 
+
+            return    $.ajax({
+                url: "{{url('reports/performingcashiers')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+
+        function getNonPerformingCashiers() {
+
+
+
+            return    $.ajax({
+                url: "{{url('reports/nonperformingcashiers')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+
+
+        function getRegionPerformance() {
+
+
+
+            return    $.ajax({
+                url: "{{url('reports/regionperformance')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+
+        function getShiftPerformance() {
+
+
+
+            return    $.ajax({
+                url: "{{url('reports/shiftperformance')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+
+        function getPerformingTolls() {
+
+
+
+            return    $.ajax({
+                url: "{{url('reports/performingtolls')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+        function getNonPerformingTolls() {
+
+
+
+            return    $.ajax({
+                url: "{{url('reports/nonperformingtolls')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+
+        function getCategoryPerformance() {
+
+
+
+            return    $.ajax({
+                url: "{{url('reports/categoryperformance')}}",
+                type: "GET",
+                dataType: 'json'
+
+            });
+        }
+
+        $.when(getPerformingCashiers()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var cashiers = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
+
+                cashiers.push(item.cashier_name);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('figures: ' + figures);
+            console.log('regions:' + cashiers);
+            var ctx = document.getElementById("cashiersPerformance");
+
+            new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: cashiers,
+                    datasets: [{
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            "borderWidth": 1,
+                            "pointRadius": 1,
+                            "label": "Performig Cashiers",
+                            "data": figures
+
+                        }]
+
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                    }
+                }
+            });
         });
-    }
-
-
-    function getRegionPerformance() {
 
 
 
-        return    $.ajax({
-            url: "{{url('reports/regionperformance')}}",
-            type: "GET",
-            dataType: 'json'
+        $.when(getNonPerformingCashiers()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var cashiers = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
 
+                cashiers.push(item.cashier_name);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('figures: ' + figures);
+            console.log('regions:' + cashiers);
+            var ctx = document.getElementById("cashiersNonPerformance");
+
+            new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: cashiers,
+                    datasets: [{
+                            "backgroundColor": 'rgba(54, 162, 235, 0.2)',
+                            "borderColor": 'rgba(54, 162, 235, 1)',
+                            "borderWidth": 1,
+                            "pointRadius": 1,
+                            "label": "Non-Performig Cashiers",
+                            "data": figures
+
+                        }]
+
+                }
+            });
         });
-    }
-    
-     function getShiftPerformance() {
 
+        $.when(getRegionPerformance()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var regions = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
 
+                regions.push(item.region_name);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('figures: ' + figures);
+            console.log('regions:' + regions);
+            var ctx = document.getElementById("regions").getContext('2d');
+            ;
 
-        return    $.ajax({
-            url: "{{url('reports/shiftperformance')}}",
-            type: "GET",
-            dataType: 'json'
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: regions,
+                    datasets: [{
+                            backgroundColor: [
+                                "#2ecc71",
+                                "#3498db",
+                                "#95a5a6",
+                                "#9b59b6",
+                                "#f1c40f",
+                                "#e74c3c",
+                                "#34495e"
+                            ],
+                            data: figures
+                        }]
 
+                }
+            });
         });
-    }
-    
-     function getPerformingTolls() {
 
 
+        $.when(getShiftPerformance()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var shifts = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
 
-        return    $.ajax({
-            url: "{{url('reports/performingtolls')}}",
-            type: "GET",
-            dataType: 'json'
+                shifts.push(item.shift);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('figures: ' + figures);
+            console.log('shifts:' + shifts);
+            var ctx = document.getElementById("shift").getContext('2d');
+            ;
 
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: shifts,
+                    datasets: [{
+                            backgroundColor: [
+                                "#9b59b6",
+                                "#f1c40f",
+                                "#e74c3c",
+                                "#34495e"
+                            ],
+                            data: figures
+                        }]
+
+                }
+            });
         });
-    } 
-    function getNonPerformingTolls() {
 
 
 
-        return    $.ajax({
-            url: "{{url('reports/nonperformingtolls')}}",
-            type: "GET",
-            dataType: 'json'
+        $.when(getPerformingTolls()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var cashiers = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
 
+                cashiers.push(item.area);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('figures: ' + figures);
+            console.log('regions:' + cashiers);
+            var ctx = document.getElementById("perfomingtolls");
+
+            new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: cashiers,
+                    datasets: [{
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            "borderWidth": 1,
+                            "pointRadius": 1,
+                            "label": "Performig TollPoints",
+                            "data": figures
+
+                        }]
+
+                }
+            });
         });
-    }
-    
-    function getCategoryPerformance() {
 
+        $.when(getNonPerformingTolls()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var cashiers = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
 
+                cashiers.push(item.area);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('tollfigures: ' + figures);
+            console.log('toll regions:' + cashiers);
+            var ctx = document.getElementById("nonperformingtolls");
 
-        return    $.ajax({
-            url: "{{url('reports/categoryperformance')}}",
-            type: "GET",
-            dataType: 'json'
+            new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: cashiers,
+                    datasets: [{
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            "borderWidth": 1,
+                            "pointRadius": 1,
+                            "label": "Non Performig TollPoints",
+                            "data": figures
 
+                        }]
+
+                }
+            });
         });
-    }
 
-    $.when(getPerformingCashiers()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var cashiers = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
 
-            cashiers.push(item.cashier_name);
-            figures.push( item.value);
+        $.when(getCategoryPerformance()).done(function (response) {
+            console.log(response);
+    // the code here will be executed when all four ajax requests resolve.
+    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+    // status, and jqXHR object for each of the four ajax calls respectively.
+            var dataSet = response.data;
+            var cashiers = [];
+            var figures = [];
+            console.log('data her: ' + response);
+            $.each(dataSet, function (i, item) {
+
+                cashiers.push(item.category_name);
+                figures.push(item.value);
+            });
+            figures = figures.map(Number);
+            console.log('figures: ' + figures);
+            console.log('regions:' + cashiers);
+            var ctx = document.getElementById("categories");
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: cashiers,
+                    datasets: [{
+                            "backgroundColor": 'rgba(54, 162, 235, 0.2)',
+                            "borderColor": 'rgba(54, 162, 235, 1)',
+                            "borderWidth": 1,
+                            "pointRadius": 1,
+                            "label": "Cars Categories",
+                            "data": figures
+
+                        }]
+
+                }
+            });
         });
-        figures = figures.map(Number);
-        console.log('figures: ' + figures);
-        console.log('regions:' + cashiers);
-        var ctx = document.getElementById("cashiersPerformance");
-
-        new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: cashiers,
-                datasets: [{
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        "borderWidth": 1,
-                        "pointRadius": 1,
-                        "label": "Performig Cashiers",
-                        "data": figures
-
-                    }]
-
-            }
-        });
-    });
 
 
-
-    $.when(getNonPerformingCashiers()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var cashiers = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
-
-            cashiers.push(item.cashier_name);
-            figures.push( item.value);
-        });
-        figures = figures.map(Number);
-        console.log('figures: ' + figures);
-        console.log('regions:' + cashiers);
-        var ctx = document.getElementById("cashiersNonPerformance");
-
-        new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: cashiers,
-                datasets: [{
-                        "backgroundColor": 'rgba(54, 162, 235, 0.2)',
-                        "borderColor": 'rgba(54, 162, 235, 1)',
-                        "borderWidth": 1,
-                        "pointRadius": 1,
-                        "label": "Non-Performig Cashiers",
-                        "data": figures
-
-                    }]
-
-            }
-        });
-    });
-
-    $.when(getRegionPerformance()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var regions = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
-
-            regions.push(item.region_name);
-            figures.push(item.value);
-        });
-        figures = figures.map(Number);
-        console.log('figures: ' + figures);
-        console.log('regions:' + regions);
-        var ctx = document.getElementById("regions").getContext('2d');;
-
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                 labels: regions,
-            datasets: [{
-                    backgroundColor: [
-                        "#2ecc71",
-                        "#3498db",
-                        "#95a5a6",
-                        "#9b59b6",
-                        "#f1c40f",
-                        "#e74c3c",
-                        "#34495e"
-                    ],
-                    data: figures
-                }]
-
-            }
-        });
-    });
-
-
- $.when(getShiftPerformance()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var shifts = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
-
-            shifts.push(item.shift);
-            figures.push(item.value);
-        });
-        figures = figures.map(Number);
-        console.log('figures: ' + figures);
-        console.log('shifts:' + shifts);
-        var ctx = document.getElementById("shift").getContext('2d');;
-
-        new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                 labels: shifts,
-            datasets: [{
-                    backgroundColor: [
-                        
-                        "#9b59b6",
-                        "#f1c40f",
-                        "#e74c3c",
-                        "#34495e"
-                    ],
-                    data: figures
-                }]
-
-            }
-        });
-    });
-    
-    
-    
-    $.when(getPerformingTolls()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var cashiers = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
-
-            cashiers.push(item.area);
-            figures.push( item.value);
-        });
-        figures = figures.map(Number);
-        console.log('figures: ' + figures);
-        console.log('regions:' + cashiers);
-        var ctx = document.getElementById("perfomingtolls");
-
-        new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: cashiers,
-                datasets: [{
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        "borderWidth": 1,
-                        "pointRadius": 1,
-                        "label": "Performig TollPoints",
-                        "data": figures
-
-                    }]
-
-            }
-        });
-    });
-
- $.when(getNonPerformingTolls()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var cashiers = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
-
-            cashiers.push(item.area);
-            figures.push( item.value);
-        });
-        figures = figures.map(Number);
-        console.log('tollfigures: ' + figures);
-        console.log('toll regions:' + cashiers);
-        var ctx = document.getElementById("nonperformingtolls");
-
-        new Chart(ctx, {
-            type: 'horizontalBar',
-            data: {
-                labels: cashiers,
-                datasets: [{
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255,99,132,1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
-                        "borderWidth": 1,
-                        "pointRadius": 1,
-                        "label": "Non Performig TollPoints",
-                        "data": figures
-
-                    }]
-
-            }
-        });
-    });
-
-
- $.when(getCategoryPerformance()).done(function (response) {
-        console.log(response);
-// the code here will be executed when all four ajax requests resolve.
-// a1, a2, a3 and a4 are lists of length 3 containing the response text,
-// status, and jqXHR object for each of the four ajax calls respectively.
-        var dataSet = response.data;
-        var cashiers = [];
-        var figures = [];
-        console.log('data her: ' + response);
-        $.each(dataSet, function (i, item) {
-
-            cashiers.push(item.category_name);
-            figures.push( item.value);
-        });
-        figures = figures.map(Number);
-        console.log('figures: ' + figures);
-        console.log('regions:' + cashiers);
-        var ctx = document.getElementById("categories");
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: cashiers,
-                datasets: [{
-                      "backgroundColor": 'rgba(54, 162, 235, 0.2)',
-                        "borderColor": 'rgba(54, 162, 235, 1)',
-                        "borderWidth": 1,
-                        "pointRadius": 1,
-                        "label": "Cars Categories",
-                        "data": figures
-
-                    }]
-
-            }
-        });
-    });
-
-
-</script>
-@endsection
+    </script>
+    @endsection

@@ -20,13 +20,18 @@ class UserController extends Controller {
 
         return view('users');
     }
+    
+    public function showchangepassword() {
+        
+        return view('changepassword');
+    }
 
     public function getUsers() {
 
 
         $url = config('constants.TEST_URL');
 
-        $baseurl = $url.'/users';
+        $baseurl = $url . '/users';
 
         $client = new Client([
             'headers' => [
@@ -70,16 +75,16 @@ class UserController extends Controller {
             'http_errors' => false
         ]);
 
-        if( $request['role'] == "Supervisor"){
+        if ($request['role'] == "Supervisor") {
             $region = $request['region'];
-        }else{
-            $region =0;
+        } else {
+            $region = 0;
         }
         $dataArray = array(
             'name' => $request['name'],
             'email' => $request['email'],
             'contact' => $request['contact'],
-             'region' => $region,
+            'region' => $region,
             'role' => $request['role'],
             'password' => md5('123456'),
             'addedby' => session('userid')
@@ -207,6 +212,86 @@ class UserController extends Controller {
         } catch (Exception $e) {
             return 'Internal Server Error:' . $e->getMessage();
         }
+    }
+
+    public function changePassword(Request $request) {
+
+        $password = md5($request['password']);
+
+        $url = config('constants.TEST_URL');
+        $baseurl = $url . '/changepassword';
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token'),
+                'code'=>$password
+            ],
+            'http_errors' => false
+        ]);
+
+
+        
+
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function resetPassword($userid) {
+
+
+        $url = config('constants.TEST_URL');
+        $baseurl = $url .'/reset/' . $userid;
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+
+
+
+
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function sendemail($receiver, $message) {
+        
     }
 
 }

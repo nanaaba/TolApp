@@ -32,6 +32,10 @@ class DashboardController extends Controller {
         
          return view('trendanalysis');
     }
+    
+    public function showcustomperformance() {
+           return view('customperformance');
+    }
 
     public function reportsontollpoints() {
 

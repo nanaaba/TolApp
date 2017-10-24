@@ -12,16 +12,19 @@
                         </li>
                         
                         
-                         <li class="parent  {{ Request::is('home*') ? 'active' : '' }}"><a href="#">
+                         <li class="parent  {{ Request::is('analytics*') ? 'active' : '' }}"><a href="#">
                                 <i class="icon mdi mdi-home"></i><span>Analytics</span></a>
                             <ul class="sub-menu">
 
                                
-                                <li class="{{ Request::is('home/trendanalysis') ? 'active' : '' }}">
-                                    <a href="{{ url('home/trendanalysis') }}" class="menu-item">Trend Analysis</a>
+                                <li class="{{ Request::is('analytics/trend') ? 'active' : '' }}">
+                                    <a href="{{ url('analytics/trend') }}" class="menu-item">Trend Analysis</a>
                                 </li>
-                                <li class="{{ Request::is('home/performance') ? 'active' : '' }}">
-                                    <a href="{{ url('home/performance') }}" class="menu-item">Custom Performance</a>
+                                <li class="{{ Request::is('analytics/customperformance') ? 'active' : '' }}">
+                                    <a href="{{ url('analytics/customperformance') }}" class="menu-item">Custom Performance</a>
+                                </li>
+                                 <li class="{{ Request::is('analytics/customtrend') ? 'active' : '' }}">
+                                    <a href="{{ url('analytics/customtrend') }}" class="menu-item">Custom Trend</a>
                                 </li>
 
                                 
