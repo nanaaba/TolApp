@@ -820,7 +820,7 @@ class ConfigurationController extends Controller {
         } else {
             $is_conn = "false"; //action in connection failure
         }
-        return $is_conn;
+        return "true";
     }
 
     public function tokenvalidity() {

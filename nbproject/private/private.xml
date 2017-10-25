@@ -3,26 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/TollApp/resources/views/cashiers.blade.php</file>
             <file>file:/var/www/html/TollApp/resources/views/monthlyreport.blade.php</file>
-            <file>file:/var/www/html/TollApp/routes/web.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/users.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/layouts/nav.blade.php</file>
+            <file>file:/var/www/html/TollApp/config/constants.php</file>
             <file>file:/var/www/html/TollApp/resources/views/generalreport.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/tollpoints.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/categories.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/customtrendanalysis.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/dashboard.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/trendanalysis.blade.php</file>
-            <file>file:/var/www/html/TollApp/app/Http/Controllers/DashboardController.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/layouts/master.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/customperformance.blade.php</file>
             <file>file:/var/www/html/TollApp/resources/views/daywisereport.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/cashier.blade.php</file>
             <file>file:/var/www/html/TollApp/resources/views/shiftwisereport.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/layouts/footer.blade.php</file>
             <file>file:/var/www/html/TollApp/resources/views/yearlyreport.blade.php</file>
-            <file>file:/var/www/html/TollApp/resources/views/layouts/forms.blade.php</file>
         </group>
     </open-files>
 </project-private>

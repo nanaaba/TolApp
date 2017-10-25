@@ -138,6 +138,20 @@
         //App.formElements();
     });
 
+    function ordinal_suffix_of(i) {
+        var j = i % 10,
+                k = i % 100;
+        if (j == 1 && k != 11) {
+            return i + "st";
+        }
+        if (j == 2 && k != 12) {
+            return i + "nd";
+        }
+        if (j == 3 && k != 13) {
+            return i + "rd";
+        }
+        return i + "th";
+    }
 
     $('#reportForm').on('submit', function (e) {
         $('.loader').addClass('be-loading-active');
@@ -167,8 +181,18 @@
             }
             $.each(dataSet, function (i, item) {
 
-                results.push(item.date);
-                figures.push(item.value);
+
+                var boolval = Number.isInteger(item.date);         // true
+                console.log('bool val :'+boolval);
+                if (boolval == true) {
+                    results.push(ordinal_suffix_of(item.date));
+                    figures.push(item.value);
+                } else {
+                    results.push(item.date);
+                    figures.push(item.value);
+                }
+
+
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
