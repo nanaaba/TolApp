@@ -252,8 +252,6 @@ class ConfigurationController extends Controller {
                 return $body;
             }
             return $response->getStatusCode();
-
-            return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -283,11 +281,10 @@ class ConfigurationController extends Controller {
             'contact' => $request['contact'],
             'email' => $request['email'],
             'toll' => $request['toll'],
-            'username' => $request['username'],
-            'password' => md5('123456'),
             'addedby' => session('userid')
         );
 
+        // return json_encode($dataArray);
         try {
 
             $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
@@ -701,8 +698,8 @@ class ConfigurationController extends Controller {
     public function redirectUrl() {
         return redirect()->route('/logout');
     }
-    
-     public function getRegionCashiers($ids) {
+
+    public function getRegionCashiers($ids) {
 
 
         $url = config('constants.TEST_URL');
@@ -739,8 +736,7 @@ class ConfigurationController extends Controller {
         }
     }
 
-
-     public function getTollCashiers($ids) {
+    public function getTollCashiers($ids) {
 
 
         $url = config('constants.TEST_URL');
@@ -777,7 +773,7 @@ class ConfigurationController extends Controller {
         }
     }
 
-     public function getRegionTolls($ids) {
+    public function getRegionTolls($ids) {
 
 
         $url = config('constants.TEST_URL');
@@ -806,6 +802,47 @@ class ConfigurationController extends Controller {
 
                 return $body;
             }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    public function is_connected() {
+
+        $connected = @fsockopen("www.example.com", 80);
+        //website, port  (try 80 or 443)
+        if ($connected) {
+            $is_conn = "true"; //action when connected
+            fclose($connected);
+        } else {
+            $is_conn = "false"; //action in connection failure
+        }
+        return $is_conn;
+    }
+
+    public function tokenvalidity() {
+
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/regions';
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+           // $body = $response->getBody();
+           
             return $response->getStatusCode();
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();

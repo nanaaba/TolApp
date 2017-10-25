@@ -32,7 +32,7 @@
 <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
 
 <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.0.2/js/dataTables.rowGroup.min.js"></script>
-  
+
 <script src="{{ asset('assets/lib/jquery.niftymodals/dist/jquery.niftymodals.js')}}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/lib/prettify/prettify.js')}}" type="text/javascript"></script>
@@ -54,15 +54,56 @@ $(document).ready(function () {
 
     //Runs prettify
     prettyPrint();
-    
-     $.fn.niftyModal('setDefaults',{
-      	overlaySelector: '.modal-overlay',
-      	closeSelector: '.modal-close',
-      	classAddAfterOpen: 'modal-show',
-      });
-      
+
+    $.fn.niftyModal('setDefaults', {
+        overlaySelector: '.modal-overlay',
+        closeSelector: '.modal-close',
+        classAddAfterOpen: 'modal-show',
+    });
+    testconnection();
+    checkTokenStatus();
+
 });
 function SignOut() {
     window.location = "{{url('logout')}}";
 }
+
+function testconnection() {
+
+    $.ajax({
+        url: "{{url('testconnection')}}",
+        type: "GET",
+        success: function (data) {
+            console.log('connection status :' + data);
+            if (data == "false") {
+                
+                $('#internetModal').modal({backdrop: 'static'}, 'show');
+            }
+
+
+        }
+    });
+
+}
+
+
+function checkTokenStatus() {
+
+    $.ajax({
+        url: "{{url('validatetoken')}}",
+        type: "GET",
+        success: function (data) {
+            console.log('token status :' + data);
+            if (data == "401") {
+                
+                $('#sessionModal').modal({backdrop: 'static'}, 'show');
+            }
+
+
+        }
+    });
+
+}
+
+
 </script>  

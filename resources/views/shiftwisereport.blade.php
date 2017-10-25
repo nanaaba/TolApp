@@ -93,10 +93,12 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="panel panel-default panel-table table-responsive">
+                <div class="panel panel-default panel-border-color panel-border-color-primary">
+
+
 
                     <div class="panel-body">
-                        <table id="transactionTbl" class="table table-striped table-hover table-fw-widget">
+                        <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
                             <thead>
                                 <tr>
                                     <th>Transaction Date</th>
@@ -111,6 +113,18 @@
                             <tbody id="transactionbody">
 
                             </tbody>
+
+                            <tfoot style="font-size: 20px;">
+                                <tr>
+                                    <th colspan="2"></th>
+
+
+                                    <th colspan="2">
+                                        Total Transactions Cost :
+                                    </th>
+                                    <th  id="totalcost"></th>
+
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -125,8 +139,6 @@
 
     @section('customjs')
     <script type="text/javascript">
-        App.init();
-        App.dataTables();
 
 
 //        var datatable = $('#transactionTbl').DataTable({
@@ -139,7 +151,13 @@
 
         var datatable = $('#transactionTbl').DataTable({
             lengthChange: false,
-            buttons: ['copy', 'excel', 'pdf', 'colvis']
+            buttons: [
+                {extend: 'copyHtml5', footer: true},
+                {extend: 'excelHtml5', footer: true},
+                {extend: 'csvHtml5', footer: true},
+                {extend: 'pdfHtml5', footer: true},
+                {extend: 'print', footer: true}
+            ]
         });
 
         datatable.buttons().container()
@@ -171,6 +189,9 @@
                     console.log('size' + dataSet.length);
                     if (dataSet.length == 0) {
                         console.log("NO DATA!");
+                        $('#infoModal').modal('show');
+
+                        return;
                     } else {
                         $.each(dataSet, function (key, value) {
 
@@ -190,6 +211,8 @@
                         });
                         rowNode.draw().node();
                     }
+                    var total = datatable.column(4).data().sum();
+                    $('#totalcost').html('GHS ' + total.toFixed(2));
 
                     $('.loader').removeClass('be-loading-active');
                 }

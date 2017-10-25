@@ -216,7 +216,7 @@ class UserController extends Controller {
 
     public function changePassword(Request $request) {
 
-        $password = md5($request['password']);
+        $password = $request['password'];
 
         $url = config('constants.TEST_URL');
         $baseurl = $url . '/changepassword';

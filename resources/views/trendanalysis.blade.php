@@ -127,7 +127,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //initialize the javascript
-        App.init();
+
         App.dashboard();
         //App.formElements();
     });
@@ -154,7 +154,60 @@
                 var dataSet = response.data;
                 var results = [];
                 var figures = [];
+                console.log('data her: ' + dataSet.length);
+
+                if (dataSet.length == 0) {
+                    $('#infoModal').modal('show');
+
+                    return;
+                }
+
+                $.each(dataSet, function (i, item) {
+
+                    results.push(item.date);
+                    figures.push(item.value);
+                });
+                figures = figures.map(Number);
+                console.log('figures: ' + figures);
+                console.log('data:' + results);
+                var ctx = document.getElementById("results");
+                ;
+
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: results,
+                        datasets: [{
+                                "borderColor": 'rgba(54, 162, 235, 1)',
+                                "borderWidth": 1,
+                                data: figures,
+                                "label": "Weekly Trend for " + type + " " + valuetext
+                            }]
+
+                    }
+                });
+            });
+
+            $('.loader').removeClass('be-loading-active');
+        }
+
+        if (report == 'monthly') {
+
+            $.when(monthlyreport(value, type)).done(function (response) {
+                console.log(response);
+// the code here will be executed when all four ajax requests resolve.
+// a1, a2, a3 and a4 are lists of length 3 containing the response text,
+// status, and jqXHR object for each of the four ajax calls respectively.
+                var dataSet = response.data;
+                var results = [];
+                var figures = [];
                 console.log('data her: ' + response);
+                
+                 if (dataSet.length == 0) {
+                    $('#infoModal').modal('show');
+
+                    return;
+                }
                 $.each(dataSet, function (i, item) {
 
                     results.push(item.date);
@@ -186,6 +239,7 @@
 
 
 
+
         if (report == 'yearly') {
 
             $.when(yearlyreport(value, type)).done(function (response) {
@@ -197,6 +251,12 @@
                 var results = [];
                 var figures = [];
                 console.log('data her: ' + response);
+                
+                 if (dataSet.length == 0) {
+                    $('#infoModal').modal('show');
+
+                    return;
+                }
                 $.each(dataSet, function (i, item) {
 
                     results.push(item.date);
@@ -265,6 +325,24 @@
 
 
 
+    function monthlyreport(value, type) {
+
+
+
+        return    $.ajax({
+            url: "{{url('reports/monthly')}}",
+            type: "POST",
+            data: {
+                type: type,
+                value: value,
+                _token: "{{ csrf_token() }}",
+            },
+            dataType: 'json'
+
+        });
+    }
+
+
     $('#type').change(function () {
         var type = $(this).val();
         $('#resultdata').empty();
@@ -278,9 +356,22 @@
             getTolls();
         }
         if (type == 'shift') {
+
+            $('#resultdata').append($('<option>', {
+                value: "",
+                text: "Select -- "
+            }));
             $('#resultdata').append($('<option>', {
                 value: 'morning',
                 text: 'Morning'
+            }));
+            $('#resultdata').append($('<option>', {
+                value: 'afternoon',
+                text: 'Afternoon'
+            }));
+            $('#resultdata').append($('<option>', {
+                value: 'night',
+                text: 'Night'
             }));
         }
     });
@@ -301,7 +392,13 @@
                     $('#errorModal').modal('show');
                 }
                 var dataSet = data.data;
+                $('#resultdata').append($('<option>', {
+                    value: "",
+                    text: "Select -- "
+                }));
                 $.each(dataSet, function (i, item) {
+
+
 
                     $('#resultdata').append($('<option>', {
                         value: item.id,
@@ -331,11 +428,15 @@
                     $('#errorModal').modal('show');
                 }
                 var dataSet = data.data;
+                $('#resultdata').append($('<option>', {
+                    value: "",
+                    text: "Select -- "
+                }));
                 $.each(dataSet, function (i, item) {
 
                     $('#resultdata').append($('<option>', {
                         value: item.id,
-                        text: item.name
+                        text: item.name + ' :  ' + item.region_name
                     }));
                 });
                 $('#loaderModal').modal('hide');
@@ -361,11 +462,15 @@
                     $('#errorModal').modal('show');
                 }
                 var dataSet = data.data;
+                $('#resultdata').append($('<option>', {
+                    value: "",
+                    text: "Select -- "
+                }));
                 $.each(dataSet, function (i, item) {
 
                     $('#resultdata').append($('<option>', {
                         value: item.id,
-                        text: item.area
+                        text: item.area + ' :  ' + item.region_name
                     }));
                 });
                 $('#loaderModal').modal('hide');

@@ -108,8 +108,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         //initialize the javascript
-        App.init();
-        App.dataTables();
+      
         $('.loader').addClass('be-loading-active');
 
 

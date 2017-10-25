@@ -48,6 +48,9 @@
 @endsection
 @section('customjs')
 <script type="text/javascript">
+    $(document).ready(function(){
+        testconnection();
+    });
 
     $('#loginForm').on('submit', function (e) {
         e.preventDefault();
@@ -79,7 +82,23 @@
 
 
     });
+function testconnection() {
 
+    $.ajax({
+        url: "{{url('testconnection')}}",
+        type: "GET",
+        success: function (data) {
+            console.log('connection status :' + data);
+            if (data == "false") {
+                
+                $('#internetModal').modal({backdrop: 'static'}, 'show');
+            }
+
+
+        }
+    });
+
+}
 
 </script>
 

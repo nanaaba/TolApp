@@ -20,6 +20,11 @@ Route::get('/logout', function() {
 
     return redirect('/');
 });
+
+Route::get('testconnection','ConfigurationController@is_connected');
+Route::get('validatetoken','ConfigurationController@tokenvalidity');
+
+
 Route::post('authenticateuser', 'LoginController@authenticateuser');
 
 Route::group(['middleware' => 'check-userauth'], function () {
@@ -61,7 +66,10 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('reports/shiftreport', 'ReportController@shiftreport');
     Route::post('reports/weekly', 'ReportController@weeklyReports');
     Route::post('reports/yearly', 'ReportController@yearlyReports');
+    Route::post('reports/monthly', 'ReportController@monthlyReports');
+
     Route::post('reports/customperformance', 'ReportController@customPerfromanceAnalysis');
+    Route::post('reports/customtrend', 'ReportController@customTrendAnalysis');
 
 
     //Dashboard  nonperformingcashiers

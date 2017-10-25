@@ -67,12 +67,12 @@
                     </div>
                 </div>
             </div>
-            
-            
-            
-            
-            
-              <div id="resetModal" tabindex="-1" role="dialog" class="modal fade in" >
+
+
+
+
+
+            <div id="resetModal" tabindex="-1" role="dialog" class="modal fade in" >
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -100,20 +100,45 @@
                 </div>
             </div>
 
-           <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
-            <div class="modal-content">
+            <div id="sessionModal" tabindex="-1" role="dialog" class="modal fade in" >
+                <div class="modal-content">
 
-                <div class="modal-body">
-                    <div class="text-center">
-                        <div class="text-danger"><span class="modal-main-icon mdi mdi-info"></span></div>
-                        <h3>Session Timed Out!</h3>
-                        <p>Your Session has expired.You have been inactive for some minutes.Sign out and Login in</p>
-                        <div class="xs-mt-50">
-                            <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign Out</button>
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <div class="text-danger"><span class="modal-main-icon mdi mdi-info"></span></div>
+                            <h3>Session Timed Out!</h3>
+                            <p>Your Session has expired.You have been inactive for some minutes.Sign out and Login in</p>
+                            <div class="xs-mt-50">
+                                <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign Out</button>
+                            </div>
                         </div>
                     </div>
+                    <div class="modal-footer"></div>
                 </div>
-                <div class="modal-footer"></div>
+            </div>
+            
+              <div id="infoModal" tabindex="-1" role="dialog" class="modal fade in" >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
+                    </div>
+                    <form id="deleteForm">
+                      
+                        <div class="modal-body">
+                            <div class="text-center">
+                                <div class="text-primary">
+                                    <span class="modal-main-icon mdi mdi-info-outline"></span></div>
+                                <h3>Information!</h3>
+                                <p>No data found in your selection</p>
+                                <div class="xs-mt-50"> 
+                                    <button type="button" data-dismiss="modal" class="btn btn-space btn-default">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer"></div>
+                </div>
             </div>
         </div>
 
@@ -150,6 +175,7 @@
         <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
         <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
+        <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.16/api/sum().js"></script>
 
 
         <script src="{{ asset('assets/lib/prettify/prettify.js')}}" type="text/javascript"></script>
@@ -167,11 +193,52 @@
 
                                         //Runs prettify
                                         prettyPrint();
+                                        testconnection();
+                                        checkTokenStatus();
                                     });
 
                                     function SignOut() {
                                         window.location = "{{url('logout')}}";
                                     }
+
+                                    function testconnection() {
+
+                                        $.ajax({
+                                            url: "{{url('testconnection')}}",
+                                            type: "GET",
+                                            success: function (data) {
+                                                console.log('connection status :' + data);
+                                                if (data == "false") {
+
+                                                    $('#internetModal').modal({backdrop: 'static'}, 'show');
+                                                }
+
+
+                                            }
+                                        });
+
+                                    }
+
+
+                                    function checkTokenStatus() {
+
+                                        $.ajax({
+                                            url: "{{url('validatetoken')}}",
+                                            type: "GET",
+                                            success: function (data) {
+                                                console.log('token status :' + data);
+                                                if (data == "401") {
+
+                                                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                                                }
+
+
+                                            }
+                                        });
+
+                                    }
+
+
         </script>   
     </body>
 </html>

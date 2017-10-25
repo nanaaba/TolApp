@@ -24,17 +24,20 @@ class DashboardController extends Controller {
         return view('dashboard')->with('reports', $tollreports)
                         ->with('regionsreport', $regionreports)
                         ->with('summation', $summation);
-              
     }
-    
-    
+
     public function showtrendanalysis() {
-        
-         return view('trendanalysis');
+
+        return view('trendanalysis');
     }
-    
+
     public function showcustomperformance() {
-           return view('customperformance');
+        return view('customperformance');
+    }
+
+    public function showcustomtrend() {
+
+        return view('customtrendanalysis');
     }
 
     public function reportsontollpoints() {
@@ -63,8 +66,6 @@ class DashboardController extends Controller {
 
                 return $bodyObj['data'];
             }
-
-            
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
@@ -138,8 +139,6 @@ class DashboardController extends Controller {
         }
     }
 
-    
-    
     public function reportsonBestTenCashiersPerforming() {
 
 
@@ -160,7 +159,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-          //  $bodyObj = json_decode($body, true);
+            //  $bodyObj = json_decode($body, true);
 
             if ($response->getStatusCode() == 200) {
 
@@ -172,8 +171,7 @@ class DashboardController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
-    
-    
+
     public function reportsonLastTenNonPerformingCashiers() {
 
 
@@ -194,7 +192,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-           // $bodyObj = json_decode($body, true);
+            // $bodyObj = json_decode($body, true);
 
             if ($response->getStatusCode() == 200) {
 
@@ -207,7 +205,6 @@ class DashboardController extends Controller {
         }
     }
 
-    
     public function reportsonRegionPerformance() {
 
 
@@ -228,7 +225,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-           
+
             if ($response->getStatusCode() == 200) {
 
                 return $body;
@@ -260,7 +257,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-           
+
             if ($response->getStatusCode() == 200) {
 
                 return $body;
@@ -272,7 +269,7 @@ class DashboardController extends Controller {
         }
     }
 
-     public function reportsonPerformingTolls() {
+    public function reportsonPerformingTolls() {
 
 
 
@@ -292,7 +289,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-           
+
             if ($response->getStatusCode() == 200) {
 
                 return $body;
@@ -303,7 +300,8 @@ class DashboardController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
- public function reportsonNonPerformingTolls() {
+
+    public function reportsonNonPerformingTolls() {
 
 
 
@@ -323,7 +321,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-           
+
             if ($response->getStatusCode() == 200) {
 
                 return $body;
@@ -334,7 +332,8 @@ class DashboardController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
- public function reportsonCategoryPerformance() {
+
+    public function reportsonCategoryPerformance() {
 
 
 
@@ -354,7 +353,7 @@ class DashboardController extends Controller {
             $response = $client->request('GET', $baseurl);
 
             $body = $response->getBody();
-           
+
             if ($response->getStatusCode() == 200) {
 
                 return $body;

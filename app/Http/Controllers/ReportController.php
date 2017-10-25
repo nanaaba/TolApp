@@ -317,6 +317,42 @@ class ReportController extends Controller {
         }
     }
 
+     public function monthlyReports(Request $request) {
+
+        $type = $request['type'];
+        $value = $request['value'];
+
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/monthlyreport/' . $type . '/' . $value;
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
+    
+    
     public function yearlyReports(Request $request) {
 
         $type = $request['type'];
@@ -407,5 +443,61 @@ class ReportController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
+    
+    
+      public function customTrendAnalysis(Request $request) {
+
+        $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/customtrend';
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+
+        $date = "'" . $request['daterange'] . "'";
+
+        $daterange = explode('-', $date);
+        $start_date = substr($daterange[0], 1);
+        $end_date = substr($daterange[1], 0, -1);
+
+        $new_start_date = date("Y-m-d", strtotime($start_date));
+        $new_end_date = date("Y-m-d", strtotime($end_date));
+
+        $dataArray = array(
+            'reporttype' => $request['reporttype'],
+            'value' => $request['value'],
+         
+            'startdate' => $new_start_date,
+            'enddate' => $new_end_date
+        );
+
+        //return json_encode($dataArray);
+        try {
+
+            $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
+
+            $body = $response->getBody();
+            // $bodyObj = json_decode($body);
+
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
 
 }

@@ -113,12 +113,12 @@
 @section('customjs')
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        //initialize the javascript
-        App.init();
-        App.dataTables();
-
-    });
+//    $(document).ready(function () {
+//        //initialize the javascript
+//        App.init();
+//        App.dataTables();
+//
+//    });
 
 
     var datatable = $('#transactionTbl').DataTable({

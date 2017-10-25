@@ -158,7 +158,7 @@
 
                     <div class="form-group">
                         <label>Role</label>
-                        <select class="form-control" name="role" id="editrole" required>
+                        <select class="form-control select2" name="role" id="editrole" required>
                             <option value="">Select ---</option>
                             <option value="Administrator">Administrator</option>
                             <option value="Supervisor">Supervisor</option>
@@ -182,14 +182,7 @@
 @section('customjs')
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        //initialize the javascript
-        App.init();
-        App.dataTables();
-        //   $('.loader').addClass('be-loading-active');
-
-
-    });
+   
 
     $('#roles').change(function () {
 
@@ -307,12 +300,13 @@
                 $('#username').val(dataArray[0].name);
                 $('#email').val(dataArray[0].email);
                 $('#contact').val(dataArray[0].contact);
-                $('#role').val(dataArray[0].role);
+                $('#editrole').val(dataArray[0].role);
                 $('#userid').val(dataArray[0].id);
+ $('#editrole').change();
 
                 $('#edituser').modal('show');
             }
-
+             
         });
     }
 

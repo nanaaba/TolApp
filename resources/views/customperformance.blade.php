@@ -158,7 +158,6 @@
 
 @section('customjs')
 <script type="text/javascript">
-    App.init();
 
 
 
@@ -208,6 +207,13 @@
             var results = [];
             var figures = [];
             console.log('data her: ' + response);
+
+            if (dataSet.length == 0) {
+                $('#infoModal').modal('show');
+
+                return;
+            }
+
             $.each(dataSet, function (i, item) {
 
                 results.push(item.description);
@@ -220,7 +226,7 @@
             ;
 
             new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: results,
                     datasets: [{
@@ -280,7 +286,7 @@
 
                 $('#tollpoints').append($('<option>', {
                     value: item.id,
-                    text: item.area
+                    text: item.area + ' :  ' + item.region_name
                 }));
             });
             $('#loaderModal').modal('hide');
@@ -353,7 +359,7 @@
 
                 $('#cashiers').append($('<option>', {
                     value: item.id,
-                    text: item.name
+                    text: item.name + ' :  ' + item.region_name
                 }));
             });
             $('#loaderModal').modal('hide');
@@ -365,9 +371,30 @@
     $('#regions').change(function () {
         var region = $(this).val();
         console.log('region code ' + region);
-        var url = 'getdistricts/' + region;
+        $('#tollpoints').empty();
+        $('#cashiers').empty();
+
+        getRegionTolls(region);
+        getRegionCashiers(region);
+
+    });
+
+    $('#tollpoints').change(function () {
+        var tollpoints = $(this).val();
+        console.log('tollpoints code ' + tollpoints);
+
+        $('#cashiers').empty();
+
+        getTollCashiers(tollpoints);
+
+
+    });
+
+
+    function getRegionTolls(regionid) {
+
         $.ajax({
-            url: url,
+            url: "../configuration/regiontolls/" + regionid,
             type: "GET",
             dataType: 'json',
             success: function (data) {
@@ -380,10 +407,80 @@
                     $('#errorModal').modal('show');
                 }
                 var dataSet = data.data;
-                console.log('district data: ' + dataSet);
+                $('#tollpoints').append($('<option>', {
+                    value: "",
+                    text: "Select -- "
+                }));
                 $.each(dataSet, function (i, item) {
 
-                    $('#districts').append($('<option>', {
+                    $('#tollpoints').append($('<option>', {
+                        value: item.id,
+                        text: item.area + ' :  ' + item.region_name
+                    }));
+                });
+                $('#loaderModal').modal('hide');
+            }
+        });
+
+    }
+
+    function getRegionCashiers(regionid) {
+
+        $.ajax({
+            url: "../configuration/regioncashiers/" + regionid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
+                var dataSet = data.data;
+                $('#cashiers').append($('<option>', {
+                    value: "",
+                    text: "Select -- "
+                }));
+                $.each(dataSet, function (i, item) {
+
+                    $('#cashiers').append($('<option>', {
+                        value: item.id,
+                        text: item.area
+                    }));
+                });
+                $('#loaderModal').modal('hide');
+            }
+        });
+
+    }
+
+
+    function getTollCashiers(regionid) {
+
+        $.ajax({
+            url: "../configuration/tollcashiers/" + regionid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
+                var dataSet = data.data;
+                $('#cashiers').append($('<option>', {
+                    value: "",
+                    text: "Select -- "
+                }));
+                $.each(dataSet, function (i, item) {
+
+                    $('#cashiers').append($('<option>', {
                         value: item.id,
                         text: item.name
                     }));
@@ -391,6 +488,9 @@
                 $('#loaderModal').modal('hide');
             }
         });
-    });
+
+    }
+
+
 </script>
 @endsection
