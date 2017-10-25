@@ -152,6 +152,11 @@
         }
         return i + "th";
     }
+    
+    function isInt(value) {
+  return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value))
+}
+
 
     $('#reportForm').on('submit', function (e) {
         $('.loader').addClass('be-loading-active');
@@ -182,7 +187,7 @@
             $.each(dataSet, function (i, item) {
 
 
-                var boolval = Number.isInteger(item.date);         // true
+                var boolval = isInt(item.date);         // true
                 console.log('bool val :'+boolval);
                 if (boolval == true) {
                     results.push(ordinal_suffix_of(item.date));
