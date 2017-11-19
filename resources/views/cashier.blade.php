@@ -4,11 +4,11 @@
 
 <div class="be-content">
     <div class="page-head">
-        <h2 class="page-head-title">Cashier</h2>
+        <h2 class="page-head-title">Collector</h2>
         <ol class="breadcrumb page-head-nav">
             <li><a href="#">Home</a></li>
             <li><a href="#">Configuration</a></li>
-            <li class="active">Cashier</li>
+            <li class="active">Collector</li>
         </ol>
     </div>
     <div class="main-content container-fluid">
@@ -25,7 +25,7 @@
                 <div class="icon"><span class="mdi mdi-close"></span></div>
                 <div class="message">
                     <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true" class="mdi mdi-close"></span></button>
-                    <strong>Good!</strong> Better check yourself, you're not looking too good.
+                     <span class="feedback"></span>
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label class=" control-label">Toll</label>
 
-                                        <select class="select2 select2-hidden-accessible" id="tollpoints" name="toll" tabindex="-1" aria-hidden="true">
+                                        <select class="select2 select2-hidden-accessible" id="tollpoints" name="toll" tabindex="-1" aria-hidden="true" required>
 
                                             <option value="">Select ---</option>
 

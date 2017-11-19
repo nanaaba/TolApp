@@ -41,7 +41,7 @@
                                     <a href="{{ url('configuration/category') }}" class="menu-item">New Category</a>
                                 </li>
                                 <li class="{{ Request::is('configuration/cashier') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/cashier') }}" class="menu-item">New Cashier</a>
+                                    <a href="{{ url('configuration/cashier') }}" class="menu-item">New Collector</a>
                                 </li>
                                 <li class="{{ Request::is('configuration/tollpoint') ? 'active' : '' }}">
                                     <a href="{{ url('configuration/tollpoint') }}" class="menu-item">New Tollpoint</a>
@@ -50,7 +50,7 @@
                                 <li class="{{ Request::is('configuration/categories') ? 'active' : '' }}">
                                     <a href="{{ url('configuration/categories') }}" class="menu-item">All Categories</a>
                                 </li> <li class="{{ Request::is('configuration/cashiers') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/cashiers') }}" class="menu-item">All Cashiers</a>
+                                    <a href="{{ url('configuration/cashiers') }}" class="menu-item">All Collectors</a>
                                 </li> <li class="{{ Request::is('configuration/tollpoints') ? 'active' : '' }}">
                                     <a href="{{ url('configuration/tollpoints') }}" class="menu-item">All Tollpoints</a>
                                 </li>

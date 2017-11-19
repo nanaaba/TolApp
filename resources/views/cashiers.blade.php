@@ -5,11 +5,11 @@
 
 <div class="be-content">
     <div class="page-head">
-        <h2 class="page-head-title">Cashiers</h2>
+        <h2 class="page-head-title">Collectors</h2>
         <ol class="breadcrumb page-head-nav">
             <li><a href="#">Home</a></li>
             <li><a href="#">Configuration</a></li>
-            <li class="active">Cashiers</li>
+            <li class="active">Collectors</li>
         </ol>
     </div>
     <div class="main-content container-fluid">
@@ -42,10 +42,12 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>Email</th>
                                     <th>Contact</th>
                                     <th>Toll</th>
-                                    <th>Region Name</th>
+                                    <th>Region </th>
                                     <th>Date Created</th>
+                                    <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -163,9 +165,12 @@
                         // represent columns as array
                         r[++j] = '<td>' + value.name + '</td>';
                         r[++j] = '<td class="subject"> ' + value.contact + '</td>';
+                        r[++j] = '<td class="subject"> ' + value.email + '</td>';
                         r[++j] = '<td class="subject">' + value.area + '</td>';
                         r[++j] = '<td class="subject">' + value.region_name + '</td>';
                         r[++j] = '<td class="subject">' + value.dateadded + '</td>';
+                        r[++j] = '<td class="subject">' + value.createdby + '</td>';
+
                         r[++j] = '<td class="actions">' +
                                 '<a  href="#"  onclick="editCashier(' + value.id + ')"  type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title="View" class="mdi mdi-eye""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
                                 '<a  href="#" onclick="deleteCashier(' + value.id + ')" type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title ="Delete" class="mdi mdi-delete""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
@@ -225,6 +230,9 @@
         e.preventDefault();
         var formData = $(this).serialize();
         console.log(formData);
+        $('#editmodal').modal('hide');
+
+
 
         $('.loader').addClass('be-loading-active');
         $.ajax({
