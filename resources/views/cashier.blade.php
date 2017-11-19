@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" name="email" placeholder="Email" class="form-control">
+                                        <input type="email" name="email" placeholder="Email" class="form-control ">
                                     </div>
                                 </div>
 

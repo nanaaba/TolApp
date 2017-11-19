@@ -20,9 +20,9 @@ class UserController extends Controller {
 
         return view('users');
     }
-    
+
     public function showchangepassword() {
-        
+
         return view('changepassword');
     }
 
@@ -129,7 +129,8 @@ class UserController extends Controller {
             'email' => $request['email'],
             'contact' => $request['contact'],
             'role' => $request['role'],
-            'userid' => $request['userid']
+            'userid' => $request['userid'],
+            'region' => $request['region']
         );
 
         try {
@@ -227,13 +228,13 @@ class UserController extends Controller {
             'headers' => [
                 'Accept' => 'application/json',
                 'token' => session('token'),
-                'code'=>$password
+                'code' => $password
             ],
             'http_errors' => false
         ]);
 
 
-        
+
 
         try {
 
@@ -257,7 +258,7 @@ class UserController extends Controller {
 
 
         $url = config('constants.TEST_URL');
-        $baseurl = $url .'/reset/' . $userid;
+        $baseurl = $url . '/reset/' . $userid;
 
 
 

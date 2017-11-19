@@ -8,59 +8,58 @@
                         <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
                             <a href="{{ url('dashboard') }}">
                                 <i class="icon mdi mdi-home"></i><span>Dashboard</span></a>
-                        
+
                         </li>
-                        
-                        
-                         <li class="parent  {{ Request::is('analytics*') ? 'active' : '' }}"><a href="#">
+
+
+                        <li class="parent  {{ Request::is('analytics*') ? 'active' : '' }}"><a href="#">
                                 <i class="icon mdi mdi-home"></i><span>Analytics</span></a>
                             <ul class="sub-menu">
 
-                               
+
                                 <li class="{{ Request::is('analytics/trend') ? 'active' : '' }}">
                                     <a href="{{ url('analytics/trend') }}" class="menu-item">Trend Analysis</a>
                                 </li>
                                 <li class="{{ Request::is('analytics/customperformance') ? 'active' : '' }}">
                                     <a href="{{ url('analytics/customperformance') }}" class="menu-item">Custom Performance</a>
                                 </li>
-                                 <li class="{{ Request::is('analytics/customtrend') ? 'active' : '' }}">
+                                <li class="{{ Request::is('analytics/customtrend') ? 'active' : '' }}">
                                     <a href="{{ url('analytics/customtrend') }}" class="menu-item">Custom Trend</a>
                                 </li>
 
-                                
-                            </ul>
-                        </li>
-                        
-                        
-                        
 
-                        <li class="parent  {{ Request::is('configuration*') ? 'active' : '' }}"><a href="#"><i class="icon mdi mdi-settings"></i><span>Settings</span></a>
-                            <ul class="sub-menu">
-
-                                <li class="{{ Request::is('configuration/category') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/category') }}" class="menu-item">New Category</a>
-                                </li>
-                                <li class="{{ Request::is('configuration/cashier') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/cashier') }}" class="menu-item">New Collector</a>
-                                </li>
-                                <li class="{{ Request::is('configuration/tollpoint') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/tollpoint') }}" class="menu-item">New Tollpoint</a>
-                                </li>
-
-                                <li class="{{ Request::is('configuration/categories') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/categories') }}" class="menu-item">All Categories</a>
-                                </li> <li class="{{ Request::is('configuration/cashiers') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/cashiers') }}" class="menu-item">All Collectors</a>
-                                </li> <li class="{{ Request::is('configuration/tollpoints') ? 'active' : '' }}">
-                                    <a href="{{ url('configuration/tollpoints') }}" class="menu-item">All Tollpoints</a>
-                                </li>
                             </ul>
                         </li>
 
-                       <li class="{{ Request::is('users*') ? 'active' : '' }}"><a href="{{ url('users') }}"><i class="icon mdi mdi-account"></i><span>User Management</span></a>
-                        </li>
 
 
+                      
+                            <li class="parent  {{ Request::is('configuration*') ? 'active' : '' }}"><a href="#"><i class="icon mdi mdi-settings"></i><span>Settings</span></a>
+                                <ul class="sub-menu">
+
+                                    <li class="{{ Request::is('configuration/category') ? 'active' : '' }}">
+                                        <a href="{{ url('configuration/category') }}" class="menu-item">New Category</a>
+                                    </li>
+                                    <li class="{{ Request::is('configuration/cashier') ? 'active' : '' }}">
+                                        <a href="{{ url('configuration/cashier') }}" class="menu-item">New Collector</a>
+                                    </li>
+                                    <li class="{{ Request::is('configuration/tollpoint') ? 'active' : '' }}">
+                                        <a href="{{ url('configuration/tollpoint') }}" class="menu-item">New Tollpoint</a>
+                                    </li>
+
+                                    <li class="{{ Request::is('configuration/categories') ? 'active' : '' }}">
+                                        <a href="{{ url('configuration/categories') }}" class="menu-item">All Categories</a>
+                                    </li> <li class="{{ Request::is('configuration/cashiers') ? 'active' : '' }}">
+                                        <a href="{{ url('configuration/cashiers') }}" class="menu-item">All Collectors</a>
+                                    </li> <li class="{{ Request::is('configuration/tollpoints') ? 'active' : '' }}">
+                                        <a href="{{ url('configuration/tollpoints') }}" class="menu-item">All Tollpoints</a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="{{ Request::is('users*') ? 'active' : '' }}"><a href="{{ url('users') }}"><i class="icon mdi mdi-account"></i><span>User Management</span></a>
+                            </li>
+                          
 
                         <li class="parent  {{ Request::is('reports*') ? 'active' : '' }}"><a href="#">
                                 <i class="icon mdi mdi-home"></i><span>Reports</span></a>

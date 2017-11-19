@@ -56,6 +56,7 @@
                                     <th>Email</th>  
                                     <th>Contact</th>  
                                     <th>Role</th>  
+                                    <th>Region</th>  
                                     <th>Date Created</th>
                                     <th>Action</th>
 
@@ -113,7 +114,7 @@
 
                     <div class="form-group" style="display: none" id="regiondiv">
                         <label>Region</label>
-                        <select class="form-control select2" name="region" id="regions" >
+                        <select class="form-control select2 regions" name="region" >
                             <option value="">Select ---</option>
 
                         </select>
@@ -166,6 +167,14 @@
                         </select>
                     </div>
 
+                    <div class="form-group" style="display: none" id="editregiondiv">
+                        <label>Region</label>
+                        <select class="form-control select2 regions" name="region" id="editregion"  >
+                            <option value="">Select ---</option>
+
+                        </select>
+                    </div>
+
 
                 </div>
                 <div class="modal-footer">
@@ -182,7 +191,7 @@
 @section('customjs')
 
 <script type="text/javascript">
-   
+
 
     $('#roles').change(function () {
 
@@ -214,7 +223,7 @@
 
             $.each(dataSet, function (i, item) {
 
-                $('#regions').append($('<option>', {
+                $('.regions').append($('<option>', {
                     value: item.id,
                     text: item.name
                 }));
@@ -261,11 +270,13 @@
                         r[++j] = '<td class="subject">' + value.email + '</td>';
                         r[++j] = '<td class="subject">' + value.contact + '</td>';
                         r[++j] = '<td class="subject">' + value.role + '</td>';
+                        r[++j] = '<td class="subject">' + value.region_name + '</td>';
+
                         r[++j] = '<td class="subject">' + value.datecreated + '</td>';
                         r[++j] = '<td class="actions">' +
                                 '<a  href="#"  onclick="editUser(' + value.id + ')"  type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title="View" class="mdi mdi-eye""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
                                 '<a  href="#" onclick="deleteUser(' + value.id + ')" type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title ="Delete" class="mdi mdi-delete""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
-                                '<a  href="#" onclick="resetPassword(' + value.id + ')" type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title ="Reset" class="mdi mdi-edit""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
+                                '<a  href="#" onclick="resetPassword(' + value.id + ')" type="button" class="icon btn btn-outline-info btn-sm  col-sm-6 btn-edit editBtn" ><i title ="Reset" class="mdi mdi-refresh""></i><span class="hidden-md hidden-sm hidden-xs"> </span></a>' +
                                 '</td>';
                         rowNode = datatable.row.add(r);
                     });
@@ -285,7 +296,7 @@
             type: "GET",
             dataType: 'json',
             success: function (data) {
-
+                $('#editregiondiv').hide();
                 if (data == "401") {
                     $('#sessionModal').modal({backdrop: 'static'}, 'show');
                 }
@@ -302,11 +313,17 @@
                 $('#contact').val(dataArray[0].contact);
                 $('#editrole').val(dataArray[0].role);
                 $('#userid').val(dataArray[0].id);
- $('#editrole').change();
+
+                if (dataArray[0].role == "Supervisor") {
+                     $('#editregion').val(dataArray[0].region);
+                    $('#editregion').change();
+                    $('#editregiondiv').show();
+                }
+                $('#editrole').change();
 
                 $('#edituser').modal('show');
             }
-             
+
         });
     }
 
@@ -327,7 +344,7 @@
         e.preventDefault();
         var formData = $(this).serialize();
         console.log(formData);
-
+  $('#newuser').modal('hide');
         $('.loader').addClass('be-loading-active');
         $.ajax({
             url: "{{url('users/save')}}",
@@ -374,7 +391,7 @@
         e.preventDefault();
         var formData = $(this).serialize();
         console.log(formData);
-
+$('#edituser').modal('hide');
         $('.loader').addClass('be-loading-active');
         $.ajax({
             url: "{{url('users/update')}}",

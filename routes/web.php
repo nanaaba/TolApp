@@ -109,6 +109,7 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('configuration/savecashier', 'ConfigurationController@saveCashier');
     Route::put('configuration/updatecashier', 'ConfigurationController@updateCashier');
     Route::delete('configuration/deletecashier/{id}', 'ConfigurationController@deleteCashier');
+    Route::get('configuration/cashiers/reset/{cashierid}', 'ConfigurationController@resetPassword');
 
 
 //users apis

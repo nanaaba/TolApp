@@ -850,6 +850,44 @@ class ConfigurationController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
+    
+    public function resetPassword($cashierid) {
+
+
+        $url = config('constants.TEST_URL');
+        $baseurl = $url .'/cashiers/reset/' . $cashierid;
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+
+
+
+
+        try {
+
+            $response = $client->request('GET', $baseurl);
+
+            $body = $response->getBody();
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
 
 }
 
