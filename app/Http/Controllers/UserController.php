@@ -100,7 +100,7 @@ class UserController extends Controller {
 
                 return $body;
             }
-            return $response->getStatusCode();
+             return $body;
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
