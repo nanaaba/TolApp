@@ -297,30 +297,10 @@
                 $('#loaderModal').modal('hide');
             }
         });
-        $.ajax({
-            url: "{{url('configuration/getcashiers')}}",
-            type: "GET",
-            dataType: 'json',
-            success: function (data) {
-
-                if (data == "401") {
-                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
-                }
-
-                if (data == "500") {
-                    $('#errorModal').modal('show');
-                }
-                var dataSet = data.data;
-                $.each(dataSet, function (i, item) {
-
-                    $('#cashiers').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
-                $('#loaderModal').modal('hide');
-            }
-        });
+       
+        
+        
+        
         $('#regions').change(function () {
             var region = $(this).val();
             console.log('region code ' + region);
