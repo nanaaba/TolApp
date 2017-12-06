@@ -90,16 +90,17 @@ class UserController extends Controller {
             'addedby' => session('userid')
         );
 
+        
         try {
 
             $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
 
             $body = $response->getBody();
 
-            if ($response->getStatusCode() == 200) {
-
-                return $body;
-            }
+//            if ($response->getStatusCode() == 200) {
+//
+//                return $body;
+//            }
              return $body;
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();

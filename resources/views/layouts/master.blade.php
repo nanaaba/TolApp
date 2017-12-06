@@ -153,7 +153,7 @@
                         <h3>Session Timed Out!</h3>
                         <p>Your Session has expired.You have been inactive for some minutes.Sign out and Login in</p>
                         <div class="xs-mt-50">
-                            <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign Out</button>
+                            <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign In</button>
                         </div>
                     </div>
                 </div>

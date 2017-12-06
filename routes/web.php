@@ -53,12 +53,13 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::get('reports/shift', 'ReportController@showshiftreport');
     Route::get('users', 'UserController@showusers');
     Route::get('users/changepassword', 'UserController@showchangepassword');
+    Route::get('reports/endofshift', 'ReportController@showendofshift');
 
 
 
 
 //apis
-//report apis     
+//report apis   endofshiftreport   
     Route::post('reports/searchresult', 'ReportController@spoolresult');
     Route::post('reports/yearlyreport', 'ReportController@yearlyreport');
     Route::post('reports/monthlyreport', 'ReportController@monthlyreport');
@@ -67,7 +68,9 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::post('reports/weekly', 'ReportController@weeklyReports');
     Route::post('reports/yearly', 'ReportController@yearlyReports');
     Route::post('reports/monthly', 'ReportController@monthlyReports');
+    Route::post('reports/endofshiftreport', 'ReportController@endofshiftreport');
 
+    
     Route::post('reports/customperformance', 'ReportController@customPerfromanceAnalysis');
     Route::post('reports/customtrend', 'ReportController@customTrendAnalysis');
 

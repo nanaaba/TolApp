@@ -39,6 +39,56 @@ class ReportController extends Controller {
         return view('shiftwisereport');
     }
 
+    public function showendofshift() {
+        
+        return view('endofshift');
+    }
+    
+    public function endofshiftreport(Request $request) {
+        
+        
+         $url = config('constants.TEST_URL');
+
+        $baseurl = $url . '/endofshift';
+
+
+
+        $client = new Client([
+            'headers' => [
+                'Accept' => 'application/json',
+                'token' => session('token')
+            ],
+            'http_errors' => false
+        ]);
+       
+        $dataArray = array(
+            'toll' => $request['tollpoints'],
+            'date' => $request['shiftdate'],
+            'cashier' => $request['cashiers'],
+            'shift' => $request['shift']
+        );
+
+
+        try {
+
+            $response = $client->request('POST', $baseurl, ['json' => $dataArray, 'verify' => false]);
+
+            $body = $response->getBody();
+            // $bodyObj = json_decode($body);
+
+
+            if ($response->getStatusCode() == 200) {
+
+                return $body;
+            }
+            return $response->getStatusCode();
+        } catch (RequestException $e) {
+            return 'Http Exception : ' . $e->getMessage();
+        } catch (Exception $e) {
+            return 'Internal Server Error:' . $e->getMessage();
+        }
+    }
+
     public function spoolresult(Request $request) {
 
         $url = config('constants.TEST_URL');
@@ -69,6 +119,7 @@ class ReportController extends Controller {
             'cashier' => $request['cashiers'],
             'region' => $request['regions'],
             'district' => $request['districts'],
+            'shift' => $request['shift'],
             'startdate' => $new_start_date,
             'enddate' => $new_end_date
         );
@@ -317,7 +368,7 @@ class ReportController extends Controller {
         }
     }
 
-     public function monthlyReports(Request $request) {
+    public function monthlyReports(Request $request) {
 
         $type = $request['type'];
         $value = $request['value'];
@@ -351,8 +402,6 @@ class ReportController extends Controller {
         }
     }
 
-    
-    
     public function yearlyReports(Request $request) {
 
         $type = $request['type'];
@@ -443,9 +492,8 @@ class ReportController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
-    
-    
-      public function customTrendAnalysis(Request $request) {
+
+    public function customTrendAnalysis(Request $request) {
 
         $url = config('constants.TEST_URL');
 
@@ -473,7 +521,6 @@ class ReportController extends Controller {
         $dataArray = array(
             'reporttype' => $request['reporttype'],
             'value' => $request['value'],
-         
             'startdate' => $new_start_date,
             'enddate' => $new_end_date
         );
@@ -498,6 +545,5 @@ class ReportController extends Controller {
             return 'Internal Server Error:' . $e->getMessage();
         }
     }
-
 
 }

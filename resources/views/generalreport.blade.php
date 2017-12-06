@@ -88,6 +88,23 @@
 
                                         </div>
                                     </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class=" control-label">Shift</label>
+
+                                            <select class="select2 select2-hidden-accessible" name="shift"  tabindex="-1" aria-hidden="true">
+
+
+                                                <option value="">Select ---</option>
+                                                <option value="Morning">Morning</option>
+                                                <option value="Afternoon">Afternoon</option>
+                                                <option value="Evening">Evening</option>
+
+                                            </select>
+
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Date Range</label>
@@ -353,7 +370,7 @@
 
                 $('#cashiers').append($('<option>', {
                     value: item.id,
-                    text: item.name
+                    text: item.name + ' :  ' + item.area
                 }));
             });
             $('#loaderModal').modal('hide');

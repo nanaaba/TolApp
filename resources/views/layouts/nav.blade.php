@@ -81,6 +81,10 @@
                                 <li class="{{ Request::is('reports/shift') ? 'active' : '' }}">
                                     <a href="{{ url('reports/shift') }}" class="menu-item">Shift Report</a>
                                 </li> 
+                                
+                                 <li class="{{ Request::is('reports/endofshift') ? 'active' : '' }}">
+                                    <a href="{{ url('reports/endofshift') }}" class="menu-item">End Of Shift </a>
+                                </li> 
                             </ul>
                         </li>
 

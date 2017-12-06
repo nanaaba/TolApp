@@ -4,10 +4,12 @@
 
 <div class="be-content">
     <div class="page-head">
-        <h2 class="page-head-title">Shift Report</h2>
+        <h2 class="page-head-title">End Of Shift </h2>
         <ol class="breadcrumb page-head-nav">
             <li><a href="#">Home</a></li>
-            <li class="active">Shift Report</li>
+            <li><a href="#">Report</a></li>
+
+            <li class="active">End Of Shift</li>
         </ol>
     </div>
     <div class="main-content container-fluid">
@@ -24,11 +26,23 @@
 
                                 <div class="row">
 
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class=" control-label">Toll</label>
 
-                                            <select class="select2 select2-hidden-accessible" id="tollpoints" name="tollpoints" tabindex="-1" aria-hidden="true">
+                                            <select class="select2 select2-hidden-accessible" id="tollpoints" name="tollpoints" tabindex="-1" aria-hidden="true" required>
+
+                                                <option value="">Select ---</option>
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label class=" control-label">Cashiers</label>
+
+                                            <select class="select2 select2-hidden-accessible" name="cashiers" id="cashiers" tabindex="-1" aria-hidden="true" required>
 
                                                 <option value="">Select ---</option>
 
@@ -37,17 +51,16 @@
                                         </div>
                                     </div>
 
-
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-4">
                                         <div class="form-group">
                                             <label class=" control-label">Shift</label>
 
-                                            <select class="select2 select2-hidden-accessible" name="shift"  tabindex="-1" aria-hidden="true">
+                                            <select class="select2 select2-hidden-accessible" name="shift"  tabindex="-1" aria-hidden="true" required>
 
                                                 <option value="">Select ---</option>
                                                 <option value="Morning">Morning</option>
                                                 <option value="Afternoon">Afternoon</option>
-                                                <option value="Evening">Night</option>
+                                                <option value="Evening">Evening</option>
 
                                             </select>
 
@@ -56,9 +69,12 @@
 
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class=" control-label">Date Range</label>
+                                            <label class=" control-label">Date </label>
 
-                                            <input type="text" name="daterange" value="" class="form-control daterange">
+
+                                            <input  type="text" name="shiftdate" value="" class="form-control datepicker" required>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -101,9 +117,8 @@
                         <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
                             <thead>
                                 <tr>
-                                    <th>Transaction Date</th>
-                                    <th>Shift</th>
-                                    <th>Toll</th>
+
+
                                     <th>No Of Transactions</th>
                                     <th>Total Transactions(GHS)</th>
 
@@ -116,10 +131,9 @@
 
                             <tfoot style="font-size: 20px;">
                                 <tr>
-                                    <th colspan="2"></th>
+                                   
 
-
-                                    <th colspan="2">
+                                    <th >
                                         Total Transactions Cost :
                                     </th>
                                     <th  id="totalcost"></th>
@@ -139,7 +153,9 @@
 
     @section('customjs')
     <script type="text/javascript">
-
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        });
 
 //        var datatable = $('#transactionTbl').DataTable({
 //            buttons: [
@@ -168,7 +184,7 @@
             e.preventDefault();
             var formData = $(this).serialize();
             $.ajax({
-                url: "{{url('reports/shiftreport')}}",
+                url: "{{url('reports/endofshiftreport')}}",
                 type: "POST",
                 data: formData,
                 dataType: 'json',
@@ -202,16 +218,13 @@
                             var r = new Array();
                             // represent columns as array
                             // represent columns as array
-                            r[++j] = '<td>' + value.transactiondate + '</td>';
-                            r[++j] = '<td class="subject"> ' + value.shift + '</td>';
-                            r[++j] = '<td class="subject"> ' + value.toll_name + '</td>';
                             r[++j] = '<td class="subject">' + value.nooftransactions + '</td>';
                             r[++j] = '<td class="subject">' + value.totaltransactions + '</td>';
                             rowNode = datatable.row.add(r);
                         });
                         rowNode.draw().node();
                     }
-                    var total = datatable.column(4).data().sum();
+                    var total = datatable.column(1).data().sum();
                     $('#totalcost').html('GHS ' + total.toFixed(2));
 
                     $('.loader').removeClass('be-loading-active');
@@ -349,6 +362,31 @@
                     $('#loaderModal').modal('hide');
                 }
             });
+        });
+
+        $.ajax({
+            url: "{{url('configuration/getcashiers')}}",
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+
+                if (data == "401") {
+                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+                }
+
+                if (data == "500") {
+                    $('#errorModal').modal('show');
+                }
+                var dataSet = data.data;
+                $.each(dataSet, function (i, item) {
+
+                    $('#cashiers').append($('<option>', {
+                        value: item.id,
+                        text: item.name + ' :  ' + item.area
+                    }));
+                });
+                $('#loaderModal').modal('hide');
+            }
         });
     </script>
     @endsection

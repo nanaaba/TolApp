@@ -19,6 +19,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/bootstrap-slider/css/bootstrap-slider.css')}}"/>
         <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/datatables/css/dataTables.bootstrap.min.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap-datepicker.min.css')}}"/>
 
     </head>
     <body>
@@ -109,7 +110,7 @@
                             <h3>Session Timed Out!</h3>
                             <p>Your Session has expired.You have been inactive for some minutes.Sign out and Login in</p>
                             <div class="xs-mt-50">
-                                <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign Out</button>
+                                <button type="button" onclick="SignOut()"  class="btn btn-primary btn-space ">Sign In</button>
                             </div>
                         </div>
                     </div>
@@ -156,6 +157,7 @@
         <script src="{{ asset('assets/lib/select2/js/select2.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('assets/lib/select2/js/select2.full.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('assets/lib/bootstrap-slider/js/bootstrap-slider.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('assets/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
 
         <script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('assets/lib/datatables/js/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
