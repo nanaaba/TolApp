@@ -26,19 +26,8 @@
 
                                 <div class="row">
 
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label class=" control-label">Toll</label>
-
-                                            <select class="select2 select2-hidden-accessible" id="tollpoints" name="tollpoints" tabindex="-1" aria-hidden="true" required>
-
-                                                <option value="">Select ---</option>
-
-                                            </select>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
+                                  
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Cashiers</label>
 
@@ -51,7 +40,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Shift</label>
 

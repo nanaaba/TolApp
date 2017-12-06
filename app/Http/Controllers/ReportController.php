@@ -62,7 +62,6 @@ class ReportController extends Controller {
         ]);
        
         $dataArray = array(
-            'toll' => $request['tollpoints'],
             'date' => $request['shiftdate'],
             'cashier' => $request['cashiers'],
             'shift' => $request['shift']
