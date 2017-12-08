@@ -40,14 +40,19 @@ class ReportController extends Controller {
     }
 
     public function showendofshift() {
-        
+
         return view('endofshift');
     }
-    
+
+    public function showcollectorsreport() {
+
+        return view('collectorsreport');
+    }
+
     public function endofshiftreport(Request $request) {
-        
-        
-         $url = config('constants.TEST_URL');
+
+
+        $url = config('constants.TEST_URL');
 
         $baseurl = $url . '/endofshift';
 
@@ -60,7 +65,7 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-       
+
         $dataArray = array(
             'date' => $request['shiftdate'],
             'cashier' => $request['cashiers'],

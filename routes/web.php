@@ -54,6 +54,7 @@ Route::group(['middleware' => 'check-userauth'], function () {
     Route::get('users', 'UserController@showusers');
     Route::get('users/changepassword', 'UserController@showchangepassword');
     Route::get('reports/endofshift', 'ReportController@showendofshift');
+    Route::get('reports/collectors', 'ReportController@showcollectorsreport');
 
 
 

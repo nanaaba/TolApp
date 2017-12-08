@@ -68,9 +68,9 @@
 
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">10 Best Performing Cashiers ( Across Country)</span>
+                        <span class="title">10  Cashiers With High Volume Transactions(Across Country)</span>
                         <span class="panel-subtitle">
-                            These are 10 best performing cashiers in this year across the country
+                            These are 10 best  cashiers with high volume transactions in this year across the country
                         </span>
                     </div>
                     <div class="panel-body">
@@ -84,9 +84,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Last 10 Non-Performing Cashiers ( Across Country)</span>
+                        <span class="title">10  Cashiers Low  Volume Transactions(Across Country)</span>
                         <span class="panel-subtitle">
-                            These are last 10 non performing cashiers in this year across the country
+                            These are 10 cashiers with low volume transactions in this year across the country
                         </span>
                     </div>
                     <div class="panel-body">
@@ -100,9 +100,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Region Performance(This Year)</span>
+                        <span class="title">Region Volume Transactions(This Year)</span>
                         <span class="panel-subtitle">
-                            Performance of regions in this year
+                            Number of Transactions per region in this year
                         </span>
                     </div>
                     <div class="panel-body">
@@ -114,7 +114,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Shift Performance(This Year)</span>
+                        <span class="title">Shift Volume Transactions(This Year)</span>
                         <span class="panel-subtitle">
                             Performance of shift in this year
                         </span>
@@ -125,14 +125,14 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+<!--        <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Best 10 Performing Tolls ( Across Country)</span>
+                        <span class="title">Best 10 Tolls On High Volume Transactions( Across Country)</span>
                         <span class="panel-subtitle">
-                            These are best performing tolls in this year across the country
+                            These are best  tolls with high volume transactions in this year across the country
                         </span>
                     </div>
                     <div class="panel-body">
@@ -144,9 +144,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Last 10 Non-Performing Tolls ( Across Country)</span>
+                        <span class="title"> Last 10 Tolls On Low Volume Transactions ( Across Country)</span>
                         <span class="panel-subtitle">
-                            These are last 10 non performing tolls in this year across the country
+                            These are last 10  tolls with low Volume transactions in this year across the country
                         </span>
                     </div>
                     <div class="panel-body">
@@ -154,7 +154,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
 
 
@@ -163,7 +163,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Cars Categories Performance (This Year)</span>
+                        <span class="title">Cars Categories Volume Of Transactions (This Year)</span>
                         <span class="panel-subtitle">
 
                         </span>
@@ -283,7 +283,7 @@
             $.each(dataSet, function (i, item) {
 
                 cashiers.push(item.cashier_name);
-                figures.push(item.value);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
@@ -345,7 +345,7 @@
             $.each(dataSet, function (i, item) {
 
                 cashiers.push(item.cashier_name);
-                figures.push(item.value);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
@@ -382,7 +382,7 @@
             $.each(dataSet, function (i, item) {
 
                 regions.push(item.region_name);
-                figures.push(item.value);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
@@ -424,7 +424,7 @@
             $.each(dataSet, function (i, item) {
 
                 shifts.push(item.shift);
-                figures.push(item.value);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
@@ -452,49 +452,38 @@
 
 
 
-        $.when(getPerformingTolls()).done(function (response) {
+
+
+
+      $.when(getPerformingTolls()).done(function (response) {
             console.log(response);
     // the code here will be executed when all four ajax requests resolve.
     // a1, a2, a3 and a4 are lists of length 3 containing the response text,
     // status, and jqXHR object for each of the four ajax calls respectively.
             var dataSet = response.data;
-            var cashiers = [];
+            var tolls = [];
             var figures = [];
             console.log('data her: ' + response);
             $.each(dataSet, function (i, item) {
 
-                cashiers.push(item.area);
-                figures.push(item.value);
+                tolls.push(item.area);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
-            console.log('regions:' + cashiers);
+            console.log('regions:' + tolls);
             var ctx = document.getElementById("perfomingtolls");
 
             new Chart(ctx, {
                 type: 'horizontalBar',
                 data: {
-                    labels: cashiers,
+                    labels: tolls,
                     datasets: [{
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
+                            "backgroundColor": 'rgba(54, 162, 235, 0.2)',
+                            "borderColor": 'rgba(54, 162, 235, 1)',
                             "borderWidth": 1,
                             "pointRadius": 1,
-                            "label": "Performig TollPoints",
+                            "label": "Non-Performig Cashiers",
                             "data": figures
 
                         }]
@@ -502,6 +491,64 @@
                 }
             });
         });
+
+
+
+
+
+//        $.when(getPerformingTolls()).done(function (response) {
+//            console.log(response);
+//    // the code here will be executed when all four ajax requests resolve.
+//    // a1, a2, a3 and a4 are lists of length 3 containing the response text,
+//    // status, and jqXHR object for each of the four ajax calls respectively.
+//            var dataSet = response.data;
+//            var cashiers = [];
+//            var figures = [];
+//            console.log('data her: ' + response);
+//            $.each(dataSet, function (i, item) {
+//
+//                cashiers.push(item.area);
+//                figures.push(item.volume);
+//            });
+//            figures = figures.map(Number);
+//            console.log('figures: ' + figures);
+//            console.log('regions:' + cashiers);
+//            var ctx = document.getElementById("perfomingtolls");
+//
+//            new Chart(ctx, {
+//                type: 'horizontalBar',
+//                data: {
+//                    labels: cashiers,
+//                    datasets: [{
+//                            backgroundColor: [
+//                                'rgba(255, 99, 132, 0.2)',
+//                                'rgba(54, 162, 235, 0.2)',
+//                                'rgba(255, 206, 86, 0.2)',
+//                                'rgba(75, 192, 192, 0.2)',
+//                                'rgba(153, 102, 255, 0.2)',
+//                                'rgba(255, 159, 64, 0.2)'
+//                            ],
+//                            borderColor: [
+//                                'rgba(255,99,132,1)',
+//                                'rgba(54, 162, 235, 1)',
+//                                'rgba(255, 206, 86, 1)',
+//                                'rgba(75, 192, 192, 1)',
+//                                'rgba(153, 102, 255, 1)',
+//                                'rgba(255, 159, 64, 1)'
+//                            ],
+////                            "borderWidth": 1,
+////                            "pointRadius": 1,
+//                            "label": " TollPoints",
+//                            "data": figures
+//
+//                        }]
+//                    
+//                    
+//                    
+//
+//                }
+//            });
+//        });
 
         $.when(getNonPerformingTolls()).done(function (response) {
             console.log(response);
@@ -515,7 +562,7 @@
             $.each(dataSet, function (i, item) {
 
                 cashiers.push(item.area);
-                figures.push(item.value);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('tollfigures: ' + figures);
@@ -567,7 +614,7 @@
             $.each(dataSet, function (i, item) {
 
                 cashiers.push(item.category_name);
-                figures.push(item.value);
+                figures.push(item.volume);
             });
             figures = figures.map(Number);
             console.log('figures: ' + figures);
