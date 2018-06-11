@@ -17,13 +17,12 @@ class DashboardController extends Controller {
 
     public function showdashboard() {
 
-        $tollreports = $this->reportsontollpoints();
-        $regionreports = $this->reportsonregions();
+//        $tollreports = $this->reportsontollpoints();
+//        $regionreports = $this->reportsonregions();
         $summation = $this->summationofresults();
+        //->with('reports', $tollreports) ->with('regionsreport', $regionreports)
 
-        return view('dashboard')->with('reports', $tollreports)
-                        ->with('regionsreport', $regionreports)
-                        ->with('summation', $summation);
+        return view('dashboard')->with('summation', $summation);
     }
 
     public function showtrendanalysis() {

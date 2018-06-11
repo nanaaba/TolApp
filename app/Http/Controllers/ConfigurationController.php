@@ -841,9 +841,9 @@ class ConfigurationController extends Controller {
 
             $response = $client->request('GET', $baseurl);
 
-           // $body = $response->getBody();
+           // $body = $response->getBody(); $response->getStatusCode();
            
-            return $response->getStatusCode();
+            return "200";
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
         } catch (Exception $e) {
