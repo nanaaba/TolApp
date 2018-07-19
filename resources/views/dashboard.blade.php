@@ -100,9 +100,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Region Volume Transactions(This Year)</span>
+                        <span class="title">Region Volume Transactions(This Month)</span>
                         <span class="panel-subtitle">
-                            Number of Transactions per region in this year
+                            Number of Transactions per region in this month
                         </span>
                     </div>
                     <div class="panel-body">
@@ -114,9 +114,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Shift Volume Transactions(This Year)</span>
+                        <span class="title">Shift Volume Transactions(This Month)</span>
                         <span class="panel-subtitle">
-                            Performance of shift in this year
+                            Performance of shift in this month
                         </span>
                     </div>
                     <div class="panel-body">
@@ -163,7 +163,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading panel-heading-divider">
 
-                        <span class="title">Cars Categories Volume Of Transactions (This Year)</span>
+                        <span class="title">Cars Categories Volume Of Transactions (This Month)</span>
                         <span class="panel-subtitle">
 
                         </span>
