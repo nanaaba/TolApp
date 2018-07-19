@@ -126,6 +126,8 @@
 @section('customjs')
 <script type="text/javascript">
     $(document).ready(function () {
+//                $('.loader').addClass('be-loading-active');
+
         //initialize the javascript
 
         App.dashboard();
@@ -157,7 +159,6 @@
 
 
     $('#reportForm').on('submit', function (e) {
-        $('.loader').addClass('be-loading-active');
         e.preventDefault();
         var formData = $(this).serialize();
 
@@ -166,10 +167,15 @@
         var report = $('#report').val();
         var valuetext = $('#resultdata option:selected').text();
 
+        $('.loader').addClass('be-loading-active');
+
+//destroy chart js
+            
 
         if (report == 'weekly') {
 
             $.when(weeklyreport(value, type)).done(function (response) {
+
                 console.log(response);
 // the code here will be executed when all four ajax requests resolve.
 // a1, a2, a3 and a4 are lists of length 3 containing the response text,
@@ -194,7 +200,7 @@
                 console.log('figures: ' + figures);
                 console.log('data:' + results);
                 var ctx = document.getElementById("results");
-                ;
+                
 
                 new Chart(ctx, {
                     type: 'line',
@@ -209,6 +215,9 @@
 
                     }
                 });
+                
+                
+
             });
 
             $('.loader').removeClass('be-loading-active');
@@ -261,6 +270,8 @@
 
                     }
                 });
+                                
+
             });
 
             $('.loader').removeClass('be-loading-active');
@@ -310,6 +321,8 @@
 
                     }
                 });
+                                
+
             });
 
             $('.loader').removeClass('be-loading-active');
