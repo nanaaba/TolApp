@@ -315,7 +315,7 @@
                 $('#userid').val(dataArray[0].id);
 
                 if (dataArray[0].role == "Supervisor") {
-                     $('#editregion').val(dataArray[0].region);
+                    $('#editregion').val(dataArray[0].region);
                     $('#editregion').change();
                     $('#editregiondiv').show();
                 }
@@ -344,7 +344,7 @@
         e.preventDefault();
         var formData = $(this).serialize();
         console.log(formData);
-  $('#newuser').modal('hide');
+        $('#newuser').modal('hide');
         $('.loader').addClass('be-loading-active');
         $.ajax({
             url: "{{url('users/save')}}",
@@ -391,7 +391,7 @@
         e.preventDefault();
         var formData = $(this).serialize();
         console.log(formData);
-$('#edituser').modal('hide');
+        $('#edituser').modal('hide');
         $('.loader').addClass('be-loading-active');
         $.ajax({
             url: "{{url('users/update')}}",

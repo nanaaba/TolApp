@@ -131,10 +131,15 @@ class DashboardController extends Controller {
 
                 return $bodyObj['data'];
             }
+            
+           if ($response->getStatusCode() == 401) {
+
+                return $bodyObj['data'];
+            }
         } catch (RequestException $e) {
             return 'Http Exception : ' . $e->getMessage();
-        } catch (Exception $e) {
-            return 'Internal Server Error:' . $e->getMessage();
+        } catch (UnauthorizedException $e) {
+             return redirect('/');
         }
     }
 

@@ -118,42 +118,44 @@
 
 
                     <div class="panel-body">
-                        <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Month</th>
-                                    <th>Transaction Year</th>
-                                    <th>Toll</th>
-                                    <th>Category</th>
-                                    <th>No Of Transactions</th>
-                                    <th>Total Transactions(GHS)</th>
+                        <div class="table-responsive">
+                            <table id="transactionTbl" class="table table-striped table-hover table-fw-widget">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction Month</th>
+                                        <th>Transaction Year</th>
+                                        <th>Toll</th>
+                                        <th>Category</th>
+                                        <th>No Of Transactions</th>
+                                        <th>Total Transactions(GHS)</th>
 
 
 
-                                </tr>
-                            </thead>
-<!--                            <tfoot>
-                                <tr>
-                                    <th colspan="5" style="text-align:right">Total:</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>-->
-                            <tbody id="transactionbody">
+                                    </tr>
+                                </thead>
+    <!--                            <tfoot>
+                                    <tr>
+                                        <th colspan="5" style="text-align:right">Total:</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>-->
+                                <tbody id="transactionbody">
 
-                            </tbody>
+                                </tbody>
 
-                            <tfoot style="font-size: 20px;">
-                                <tr>
-                                    <th colspan="3"></th>
+                                <tfoot style="font-size: 20px;">
+                                    <tr>
+                                        <th colspan="3"></th>
 
 
-                                    <th colspan="2">
-                                        Total Transactions Cost :
-                                    </th>
-                                    <th  id="totalcost"></th>
+                                        <th colspan="2">
+                                            Total Transactions Cost :
+                                        </th>
+                                        <th  id="totalcost"></th>
 
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,10 +191,10 @@
             ],
             "columnDefs": [
                 {"width": "15%", "targets": 0},
-                {"width": "30%", "targets": 1},
+                {"width": "15%", "targets": 1},
                 {"width": "25%", "targets": 2},
-                {"width": "15%", "targets": 3},
-                {"width": "15%", "targets": 4}
+                {"width": "25%", "targets": 3},
+                {"width": "10%", "targets": 4}
             ]
         });
 
@@ -225,6 +227,8 @@
                     datatable.clear().draw();
                     console.log('size' + dataSet.length);
                     if (dataSet.length == 0) {
+                        $('#totalcost').html('GHS 0.00');
+
                         $('#infoModal').modal('show');
 
                         return;
@@ -249,7 +253,7 @@
                         rowNode.draw().node();
                     }
                     var total = datatable.column(5).data().sum();
-                    $('#totalcost').html('GHS ' + total.toFixed(2));
+                    $('#totalcost').html('GHS ' + total.toLocaleString("en"));
 
                     $('.loader').removeClass('be-loading-active');
                 }

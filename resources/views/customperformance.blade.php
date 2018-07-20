@@ -97,11 +97,16 @@
                                     </div>
 
 
-                                    <div class="col-sm-6">
+                                      <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class=" control-label">Date Range</label>
 
-                                            <input type="text" name="daterange" value="" class="form-control daterange">
+                                            <div class="input-group input-daterange" data-provide="daterange" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control float-right datepicker" name="start_date" data-language="en" id="start_date" type="text" autocomplete="off" >
+
+                                                <span class="input-group-addon">to</span>
+                                                <input class="form-control float-right datepicker"  name="end_date" data-language="en" id="end_date" type="text" autocomplete="off" >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

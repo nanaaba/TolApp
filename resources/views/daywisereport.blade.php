@@ -40,7 +40,12 @@
                                         <div class="form-group">
                                             <label class=" control-label">Date Range</label>
 
-                                            <input type="text" name="daterange" value="" class="form-control daterange">
+                                            <div class="input-group input-daterange" data-provide="daterange" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control float-right datepicker" name="start_date" data-language="en" id="start_date" type="text" autocomplete="off" >
+
+                                                <span class="input-group-addon">to</span>
+                                                <input class="form-control float-right datepicker"  name="end_date" data-language="en" id="end_date" type="text" autocomplete="off" >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -80,33 +85,36 @@
 
 
                     <div class="panel-body">
-                        <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Date</th>
-                                    <th>Toll</th>
-                                    <th>Category</th>
-                                    <th>No Of Transactions</th>
-                                    <th>Total Transactions(GHS)</th>
+                        <div class="table-responsive ">
+
+                            <table id="transactionTbl" class="table table-striped table-hover table-fw-widget">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction Date</th>
+                                        <th>Toll</th>
+                                        <th>Category</th>
+                                        <th >No Of Transactions</th>
+                                        <th  >Total Transactions(GHS)</th>
 
 
-                                </tr>
-                            </thead>
-                            <tbody id="transactionbody">
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionbody">
 
-                            </tbody>
-                            <tfoot style="font-size: 20px;">
-                                <tr>
-                                    <th colspan="3"></th>
+                                </tbody>
+                                <tfoot style="font-size: 20px;">
+                                    <tr>
+                                        <th colspan="3"></th>
 
 
-                                    <th >
-                                        Total Transactions Cost :
-                                    </th>
-                                    <th  id="totalcost"></th>
+                                        <th >
+                                            Total Transactions Cost :
+                                        </th>
+                                        <th  id="totalcost"></th>
 
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -132,6 +140,14 @@
 
         var datatable = $('#transactionTbl').DataTable({
             lengthChange: false,
+            "columnDefs": [
+                {"width": "20%", "targets": 0},
+                {"width": "25%", "targets": 1},
+                {"width": "25%", "targets": 2},
+                {"width": "10%", "targets": 3},
+                {className: "dt-right", "targets": [3, 4]}
+
+            ],
             buttons: [
                 {extend: 'copyHtml5', footer: true},
                 {extend: 'excelHtml5', footer: true},
@@ -169,6 +185,8 @@
                     datatable.clear().draw();
                     console.log('size' + dataSet.length);
                     if (dataSet.length == 0) {
+                        $('#totalcost').html('GHS 0.00');
+
                         $('#infoModal').modal('show');
 
                         return;
@@ -193,7 +211,7 @@
 
 
                     var total = datatable.column(4).data().sum();
-                    $('#totalcost').html('GHS ' + total.toFixed(2));
+                    $('#totalcost').html('GHS ' + total.toLocaleString("en"));
 
                     $('.loader').removeClass('be-loading-active');
                 }

@@ -37,6 +37,7 @@
         <link rel="stylesheet" href="{{ asset('assets/css/style.css')}}" type="text/css"/>
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/lib/datatables/css/dataTables.bootstrap.min.css')}}"/>
 
+<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap-datepicker.min.css')}}"/>
 
 
     </head>

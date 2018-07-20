@@ -7,26 +7,24 @@
 <script src="{{ asset('assets/lib/jqvmap/jquery.vmap.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/lib/jqvmap/maps/jquery.vmap.world.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/lib/jquery.nestable/jquery.nestable.js')}}"  type="text/javascript"></script>
-<script src="{{ asset('assets/lib/moment.js/min/moment.min.js')}}"  type="text/javascript"></script>
-<script src="{{ asset('assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js')}}"  type="text/javascript"></script>
-<script src="{{ asset('assets/lib/daterangepicker/js/daterangepicker.js')}}"  type="text/javascript"></script>
+   <script src="{{ asset('assets/lib/moment.js/min/moment.min.js')}}"  type="text/javascript"></script>
+        <script src="{{ asset('assets/lib/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('assets/lib/daterangepicker/js/daterangepicker.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('assets/lib/bootstrap-slider/js/bootstrap-slider.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('assets/js/bootstrap-datepicker.js')}}" type="text/javascript"></script>
+
 <script src="{{ asset('assets/lib/select2/js/select2.min.js')}}"  type="text/javascript"></script>
 <script src="{{ asset('assets/lib/select2/js/select2.full.min.js')}}"  type="text/javascript"></script>
 <script src="{{ asset('assets/lib/bootstrap-slider/js/bootstrap-slider.js')}}"  type="text/javascript"></script>
 
 <script src="{{ asset('assets/lib/datatables/js/jquery.dataTables.min.js')}}" type="text/javascript"></script>
 <script src="{{ asset('assets/lib/datatables/js/dataTables.bootstrap.min.js')}}" type="text/javascript"></script>
-<!--<script src="{{ asset('assets/lib/datatables/plugins/buttons/js/dataTables.buttons.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/lib/datatables/plugins/buttons/js/buttons.html5.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/lib/datatables/plugins/buttons/js/buttons.flash.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/lib/datatables/plugins/buttons/js/buttons.print.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/lib/datatables/plugins/buttons/js/buttons.colVis.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/lib/datatables/plugins/buttons/js/buttons.bootstrap.js')}}" type="text/javascript"></script>-->
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.bootstrap.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>-->
+
 <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
@@ -45,6 +43,27 @@
 
 
 <script type="text/javascript">
+
+
+$("#start_date").datepicker({
+    format: 'yyyy-mm-dd'
+});
+
+//initialize it once without start date
+$("#end_date").datepicker({
+    format: 'yyyy-mm-dd'
+});
+
+$("#start_date").on('changeDate', function () {
+    var st = $(this).datepicker("getDate");
+    var end = st;
+    console.log(st);
+    end.toLocaleDateString();
+    console.log(end);
+
+    //use setStartDate to change startdate property dynamically
+    $('#end_date').val('').datepicker('setStartDate', end);
+});
 $(document).ready(function () {
     //initialize the javascript
     App.init();
@@ -61,7 +80,6 @@ $(document).ready(function () {
         classAddAfterOpen: 'modal-show',
     });
     testconnection();
-    checkTokenStatus();
 
 });
 function SignOut() {
@@ -76,7 +94,7 @@ function testconnection() {
         success: function (data) {
             console.log('connection status :' + data);
             if (data == "false") {
-                
+
                 $('#internetModal').modal({backdrop: 'static'}, 'show');
             }
 
@@ -95,7 +113,7 @@ function checkTokenStatus() {
         success: function (data) {
             console.log('token status :' + data);
             if (data == "401") {
-                
+
                 $('#sessionModal').modal({backdrop: 'static'}, 'show');
             }
 

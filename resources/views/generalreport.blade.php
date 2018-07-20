@@ -109,9 +109,16 @@
                                         <div class="form-group">
                                             <label class=" control-label">Date Range</label>
 
-                                            <input type="text" name="daterange" value="" class="form-control daterange">
+                                            <div class="input-group input-daterange" data-provide="daterange" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control float-right datepicker" name="start_date" data-language="en" id="start_date" type="text" autocomplete="off" >
+
+                                                <span class="input-group-addon">to</span>
+                                                <input class="form-control float-right datepicker"  name="end_date" data-language="en" id="end_date" type="text" autocomplete="off" >
+                                            </div>
                                         </div>
                                     </div>
+
+
                                 </div>
 
 
@@ -149,40 +156,42 @@
 
 
                     <div class="panel-body">
-                        <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Id</th>
-                                    <th>Category</th>
-                                    <th>Amount</th>
-                                    <th>Cashier</th>
-                                    <th>Shift</th>
+                        <div class="table-responsive ">
+                            <table id="transactionTbl" class="table table-striped table-hover table-fw-widget">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction Id</th>
+                                        <th>Category</th>
+                                        <th>Amount</th>
+                                        <th>Cashier</th>
+                                        <th>Shift</th>
 
-                                    <th>Region</th>
-                                    <th>Toll</th>
-                                    <th>Transaction Date</th>
-                                </tr>
-                            </thead>
-                            <tbody id="transactionbody">
+                                        <th>Region</th>
+                                        <th>Toll</th>
+                                        <th>Transaction Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionbody">
 
-                            </tbody>
+                                </tbody>
 
-                            <tfoot style="font-size: 20px;">
-                                <tr>
-                                    <th></th>
-                                    <th></th>
-                                    <th></th> 
-                                    <th></th>
-                                    <th></th>
+                                <tfoot style="font-size: 20px;">
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th> 
+                                        <th></th>
+                                        <th></th>
 
-                                    <th colspan="2">
-                                        Total Transactions Cost :
-                                    </th>
-                                    <th  id="totalcost"></th>
+                                        <th colspan="2">
+                                            Total Transactions Cost :
+                                        </th>
+                                        <th  id="totalcost"></th>
 
-                            </tfoot>
+                                </tfoot>
 
-                        </table>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -196,15 +205,6 @@
 
 @section('customjs')
 <script type="text/javascript">
-
-
-//        var datatable = $('#transactionTbl').DataTable({
-//            buttons: [
-//                'copy', 'excel', 'pdf'
-//            ]
-//        });
-//        datatable.buttons().container()
-//                .appendTo($('.col-sm-6:eq(0)', datatable.table().container()));
 
     var datatable = $('#transactionTbl').DataTable({
         lengthChange: false,
@@ -244,7 +244,10 @@
                 console.log(dataSet);
                 datatable.clear().draw();
                 console.log('size' + dataSet.length);
+
+
                 if (dataSet.length == 0) {
+                    $('#totalcost').html('GHS 0.00');
                     $('#infoModal').modal('show');
 
                     return;
@@ -269,10 +272,19 @@
                     });
                     rowNode.draw().node();
                 }
+
+
                 var total = datatable.column(2).data().sum();
-                $('#totalcost').html('GHS ' + total.toFixed(2));
+                $('#totalcost').html('GHS ' + total.toLocaleString("en"));
                 console.log('AMount' + total);
                 $('.loader').removeClass('be-loading-active');
+
+                if (dataSet.lenghth == 2000) {
+                    console.log('2000 aboce');
+                    $('#specialmsg').html("Transactions data is limited to 2000 transactions due to the size of the data.If Urgency is needed for the data.Please Contact System Administrators to spool data for use.Thank you.")
+                    $('#infoModal').modal('show');
+                    return;
+                }
             }
 
 
@@ -376,35 +388,35 @@
             $('#loaderModal').modal('hide');
         }
     });
-    $('#regions').change(function () {
-        var region = $(this).val();
-        console.log('region code ' + region);
-        var url = 'getdistricts/' + region;
-        $.ajax({
-            url: url,
-            type: "GET",
-            dataType: 'json',
-            success: function (data) {
-
-                if (data == "401") {
-                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
-                }
-
-                if (data == "500") {
-                    $('#errorModal').modal('show');
-                }
-                var dataSet = data.data;
-                console.log('district data: ' + dataSet);
-                $.each(dataSet, function (i, item) {
-
-                    $('#districts').append($('<option>', {
-                        value: item.id,
-                        text: item.name
-                    }));
-                });
-                $('#loaderModal').modal('hide');
-            }
-        });
-    });
+//    $('#regions').change(function () {
+//        var region = $(this).val();
+//        console.log('region code ' + region);
+//        var url = 'getdistricts/' + region;
+//        $.ajax({
+//            url: url,
+//            type: "GET",
+//            dataType: 'json',
+//            success: function (data) {
+//
+//                if (data == "401") {
+//                    $('#sessionModal').modal({backdrop: 'static'}, 'show');
+//                }
+//
+//                if (data == "500") {
+//                    $('#errorModal').modal('show');
+//                }
+//                var dataSet = data.data;
+//                console.log('district data: ' + dataSet);
+//                $.each(dataSet, function (i, item) {
+//
+//                    $('#districts').append($('<option>', {
+//                        value: item.id,
+//                        text: item.name
+//                    }));
+//                });
+//                $('#loaderModal').modal('hide');
+//            }
+//        });
+//    });
 </script>
 @endsection

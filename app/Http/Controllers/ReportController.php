@@ -108,14 +108,6 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-        $date = "'" . $request['daterange'] . "'";
-
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
 
         $dataArray = array(
             'toll' => $request['tollpoints'],
@@ -124,8 +116,8 @@ class ReportController extends Controller {
             'region' => $request['regions'],
             'district' => $request['districts'],
             'shift' => $request['shift'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
+            'startdate' => $request['start_date'],
+            'enddate' => $request['end_date']
         );
 
 
@@ -164,19 +156,11 @@ class ReportController extends Controller {
             ],
             'http_errors' => false
         ]);
-        $date = "'" . $request['daterange'] . "'";
-
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
 
         $dataArray = array(
             'toll' => $request['tollpoints'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
+            'startdate' => $request['start_date'],
+            'enddate' => $request['end_date']
         );
 
 
@@ -302,22 +286,15 @@ class ReportController extends Controller {
             'http_errors' => false
         ]);
 
-        $date = "'" . $request['daterange'] . "'";
-
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
 
         $dataArray = array(
             'toll' => $request['toll'],
             'shift' => $request['shift'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
+            'startdate' => $request['start_date'],
+            'enddate' => $request['end_date']
         );
 
+        
 
         try {
 
@@ -459,12 +436,6 @@ class ReportController extends Controller {
         ]);
         $date = "'" . $request['daterange'] . "'";
 
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
 
         $dataArray = array(
             'toll' => $request['tollpoints'],
@@ -472,8 +443,8 @@ class ReportController extends Controller {
             'cashier' => $request['cashiers'],
             'region' => $request['regions'],
             'shift' => $request['shift'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
+            'startdate' => $request['start_date'],
+            'enddate' => $request['end_date']
         );
 
 
@@ -513,20 +484,12 @@ class ReportController extends Controller {
             'http_errors' => false
         ]);
 
-        $date = "'" . $request['daterange'] . "'";
-
-        $daterange = explode('-', $date);
-        $start_date = substr($daterange[0], 1);
-        $end_date = substr($daterange[1], 0, -1);
-
-        $new_start_date = date("Y-m-d", strtotime($start_date));
-        $new_end_date = date("Y-m-d", strtotime($end_date));
 
         $dataArray = array(
             'reporttype' => $request['reporttype'],
             'value' => $request['value'],
-            'startdate' => $new_start_date,
-            'enddate' => $new_end_date
+            'startdate' => $request['start_date'],
+            'enddate' => $request['end_date']
         );
 
         //return json_encode($dataArray);

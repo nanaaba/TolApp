@@ -117,32 +117,46 @@
                     <div class="modal-footer"></div>
                 </div>
             </div>
-            
-              <div id="infoModal" tabindex="-1" role="dialog" class="modal fade in" >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
-                    </div>
-                    <form id="deleteForm">
-                      
-                        <div class="modal-body">
-                            <div class="text-center">
-                                <div class="text-primary">
-                                    <span class="modal-main-icon mdi mdi-info-outline"></span></div>
-                                <h3>Information!</h3>
-                                <p>No data found in your selection</p>
-                                <div class="xs-mt-50"> 
-                                    <button type="button" data-dismiss="modal" class="btn btn-space btn-default">OK</button>
+
+            <div id="infoModal" tabindex="-1" role="dialog" class="modal fade in" >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" data-dismiss="modal" aria-hidden="true" class="close"><span class="mdi mdi-close"></span></button>
+                        </div>
+                        <form id="deleteForm">
+
+                            <div class="modal-body">
+                                <div class="text-center">
+                                    <div class="text-primary">
+                                        <span class="modal-main-icon mdi mdi-info-outline"></span></div>
+                                    <h3>Information!</h3>
+                                    <p><span id="specialmsg">No data found in your selection</span></p>
+                                    <div class="xs-mt-50"> 
+                                        <button type="button" data-dismiss="modal" class="btn btn-space btn-default">OK</button>
+                                    </div>
                                 </div>
                             </div>
+                        </form>
+                        <div class="modal-footer"></div>
+                    </div>
+                </div>
+            </div>
+
+              <div id="errorModal" tabindex="-1" role="dialog" class="modal fade in" >
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <div class="text-danger"><span class="modal-main-icon mdi mdi-info"></span></div>
+                            <h3>An error Occured!</h3>
+                            <p>Please contact System Administrator.</p>
+                            
                         </div>
-                    </form>
+                    </div>
                     <div class="modal-footer"></div>
                 </div>
             </div>
-        </div>
-
 
         </div>
         <script src="{{ asset('assets/lib/jquery/jquery.min.js')}}" type="text/javascript"></script>
@@ -171,9 +185,10 @@
 
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.bootstrap.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<!--        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+        -->
         <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
         <script type="text/javascript" src="//cdn.datatables.net/buttons/1.4.2/js/buttons.colVis.min.js"></script>
@@ -186,6 +201,26 @@
         @yield('customjs')
 
         <script type="text/javascript">
+
+                                    $("#start_date").datepicker({
+                                        format: 'yyyy-mm-dd'
+                                    });
+
+//initialize it once without start date
+                                    $("#end_date").datepicker({
+                                        format: 'yyyy-mm-dd'
+                                    });
+
+                                    $("#start_date").on('changeDate', function () {
+                                        var st = $(this).datepicker("getDate");
+                                        var end = st;
+                                        console.log(st);
+                                        end.toLocaleDateString();
+                                        console.log(end);
+
+                                        //use setStartDate to change startdate property dynamically
+                                        $('#end_date').val('').datepicker('setStartDate', end);
+                                    });
                                     $(document).ready(function () {
                                         //initialize the javascript
                                         App.init();
@@ -196,7 +231,7 @@
                                         //Runs prettify
                                         prettyPrint();
                                         testconnection();
-                                        checkTokenStatus();
+                                        // checkTokenStatus();
                                     });
 
                                     function SignOut() {

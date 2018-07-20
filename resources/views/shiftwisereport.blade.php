@@ -28,7 +28,7 @@
                                         <div class="form-group">
                                             <label class=" control-label">Toll</label>
 
-                                            <select class="select2 select2-hidden-accessible" id="tollpoints" name="tollpoints" tabindex="-1" aria-hidden="true">
+                                            <select class="select2 select2-hidden-accessible" id="tollpoints" name="toll" tabindex="-1" aria-hidden="true">
 
                                                 <option value="">Select ---</option>
 
@@ -58,7 +58,12 @@
                                         <div class="form-group">
                                             <label class=" control-label">Date Range</label>
 
-                                            <input type="text" name="daterange" value="" class="form-control daterange">
+                                            <div class="input-group input-daterange" data-provide="daterange" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                                <input class="form-control float-right datepicker" name="start_date" data-language="en" id="start_date" type="text" autocomplete="off" >
+
+                                                <span class="input-group-addon">to</span>
+                                                <input class="form-control float-right datepicker"  name="end_date" data-language="en" id="end_date" type="text" autocomplete="off" >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -98,34 +103,36 @@
 
 
                     <div class="panel-body">
-                        <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Date</th>
-                                    <th>Shift</th>
-                                    <th>Toll</th>
-                                    <th>No Of Transactions</th>
-                                    <th>Total Transactions(GHS)</th>
+                        <div class="table-responsive">
+                            <table id="transactionTbl" class=" table table-striped table-hover table-fw-widget">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction Date</th>
+                                        <th>Shift</th>
+                                        <th>Toll</th>
+                                        <th>No Of Transactions</th>
+                                        <th>Total Transactions(GHS)</th>
 
 
-                                </tr>
-                            </thead>
-                            <tbody id="transactionbody">
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionbody">
 
-                            </tbody>
+                                </tbody>
 
-                            <tfoot style="font-size: 20px;">
-                                <tr>
-                                    <th colspan="2"></th>
+                                <tfoot style="font-size: 20px;">
+                                    <tr>
+                                        <th colspan="2"></th>
 
 
-                                    <th colspan="2">
-                                        Total Transactions Cost :
-                                    </th>
-                                    <th  id="totalcost"></th>
+                                        <th colspan="2">
+                                            Total Transactions Cost :
+                                        </th>
+                                        <th  id="totalcost"></th>
 
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -157,6 +164,14 @@
                 {extend: 'csvHtml5', footer: true},
                 {extend: 'pdfHtml5', footer: true},
                 {extend: 'print', footer: true}
+            ],
+            "columnDefs": [
+                {"width": "20%", "targets": 0},
+                {"width": "25%", "targets": 1},
+                {"width": "25%", "targets": 2},
+                {"width": "10%", "targets": 3},
+                {className: "dt-right", "targets": [3, 4]}
+
             ]
         });
 
@@ -189,6 +204,8 @@
                     console.log('size' + dataSet.length);
                     if (dataSet.length == 0) {
                         console.log("NO DATA!");
+                        $('#totalcost').html('GHS 0.00');
+
                         $('#infoModal').modal('show');
 
                         return;
@@ -212,7 +229,7 @@
                         rowNode.draw().node();
                     }
                     var total = datatable.column(4).data().sum();
-                    $('#totalcost').html('GHS ' + total.toFixed(2));
+                    $('#totalcost').html('GHS ' + total.toLocaleString("en"));
 
                     $('.loader').removeClass('be-loading-active');
                 }

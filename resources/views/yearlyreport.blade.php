@@ -93,40 +93,42 @@
 
 
                     <div class="panel-body">
-                        <table id="transactionTbl" class=" table-responsive table table-striped table-hover table-fw-widget">
-                            <thead>
-                                <tr>
-                                    <th>Transaction Year</th>
-                                    <th>Toll</th>
-                                    <th>Category</th>
-                                    <th>No Of Transactions</th>
-                                    <th>Total Transactions(GHS)</th>
+                        <div class="table-responsive">
+                            <table id="transactionTbl" class=" table table-striped table-hover table-fw-widget">
+                                <thead>
+                                    <tr>
+                                        <th>Transaction Year</th>
+                                        <th>Toll</th>
+                                        <th>Category</th>
+                                        <th>No Of Transactions</th>
+                                        <th>Total Transactions(GHS)</th>
 
 
 
-                                </tr>
-                            </thead>
-<!--                            <tfoot>
-                                <tr>
-                                    <th colspan="4" style="text-align:right">Total:</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>-->
-                            <tbody id="transactionbody">
+                                    </tr>
+                                </thead>
+    <!--                            <tfoot>
+                                    <tr>
+                                        <th colspan="4" style="text-align:right">Total:</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>-->
+                                <tbody id="transactionbody">
 
-                            </tbody>
-                            <tfoot style="font-size: 20px;">
-                                <tr>
-                                    <th colspan="2"></th>
+                                </tbody>
+                                <tfoot style="font-size: 20px;">
+                                    <tr>
+                                        <th colspan="2"></th>
 
 
-                                    <th colspan="2">
-                                        Total Transactions Cost :
-                                    </th>
-                                    <th  id="totalcost"></th>
+                                        <th colspan="2">
+                                            Total Transactions Cost :
+                                        </th>
+                                        <th  id="totalcost"></th>
 
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -199,6 +201,7 @@
                     console.log('size' + dataSet.length);
                     if (dataSet.length == 0) {
                         console.log("NO DATA!");
+                        $('#totalcost').html('GHS 0.00');
                         $('#infoModal').modal('show');
 
                         return;
@@ -222,7 +225,7 @@
                         rowNode.draw().node();
                     }
                     var total = datatable.column(4).data().sum();
-                    $('#totalcost').html('GHS ' + total.toFixed(2));
+                    $('#totalcost').html('GHS ' + total.toLocaleString("en"));
 
                     $('.loader').removeClass('be-loading-active');
                 }
